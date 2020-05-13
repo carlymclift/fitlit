@@ -27,7 +27,7 @@ describe('Hydration', () => {
 	it('findOuncesForDay method should return the accurate ounce number', () => {
 		let getData = userHydration.findOuncesForDay('2019/06/15');
 
-		expect(getData).to.deep.equal(37);
+		expect(getData).to.equal(37);
   })
 
 })
