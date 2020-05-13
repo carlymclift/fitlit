@@ -49,7 +49,7 @@ describe('User', () => {
 		expect(user.friends).to.deep.equal([16, 4, 8]);
 	})
 
-	it('should require an argument to create a new User', () => {
+	it('should not require an argument to create a new User', () => {
 		expect(() => { new User() }).to.not.throw(Error);
 	})
 
