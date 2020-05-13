@@ -24,6 +24,12 @@ describe('Hydration', () => {
 		userHydration = new Hydration(user1);
 	})
 
+	it('should be able to get the average daily hydration for each user for all time ', () => {
+		let getAverage = userHydration.findHydrationAverage(1);
+
+		expect(getAverage).to.equal(58);
+  })
+
 	it('findOuncesForDay method should return the accurate ounce number', () => {
 		let getData = userHydration.findOuncesForDay('2019/06/15');
 
