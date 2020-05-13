@@ -5,7 +5,6 @@ const User = require('../src/User-class');
 const userData = require('../data/users');
 const UserRepository = require('../src/UserRepository');
 const Hydration = require('../src/Hydration');
-// const hydrationData = require('../data/hydration');
 
 describe('Hydration', () => {
 
