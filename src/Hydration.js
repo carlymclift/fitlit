@@ -11,8 +11,13 @@ class Hydration {
 		this.friends = userInfo.friends
 	}
 
-	findHydrationAverage() {
-
+	findHydrationAverage(userId) {
+		let userHydration = hydrationData.filter(user => user.userID === userId);
+		let avHydration = userHydration.reduce((ounces, user) => {
+			ounces += user.numOunces / userHydration.length
+			return ounces
+		}, 0)
+		return Math.round(avHydration);
 	}
 
 	findOuncesForDay(date) {
