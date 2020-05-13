@@ -3,17 +3,17 @@ class UserRepository {
         this.data = data;
     }
 
-getDataById(id) {
-    return this.data.find(user => user.id === id);
-}
+	getDataById(id) {
+			return this.data.find(user => user.id === id);
+	}
 
-fetchAverageStepGoal() {
-    let average = this.data.reduce((acc, user) => {
-        acc += user.dailyStepGoal
-        return acc;
-    }, 0)
-    return Math.round(average / this.data.length)
-  }
+	fetchAverageStepGoal() {
+			let average = this.data.reduce((acc, user) => {
+					acc += user.dailyStepGoal
+					return acc;
+			}, 0)
+			return Math.round(average / this.data.length)
+		}
 }
 
 if (typeof module !== 'undefined') {
