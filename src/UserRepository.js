@@ -12,7 +12,7 @@ fetchAverageStepGoal() {
         acc += user.dailyStepGoal
         return acc;
     }, 0)
-    return (average / this.data.length)
+    return Math.round(average / this.data.length)
   }
 }
 
