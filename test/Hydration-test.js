@@ -40,13 +40,19 @@ describe('Hydration', () => {
 		expect(() => { new Hydration() }).to.throw(Error);
 	})
 
-	it('should be able to get the average daily hydration for each user for all time ', () => {
+	it('should be able to get the average daily hydration for each user by id, for all time', () => {
 		let getAverage = userHydration.findHydrationAverage(1);
 
 		expect(getAverage).to.equal(58);
-  })
+	})
+	  
+	it('if no user id is given when invoked, findHydrationAverage method should throw an error', () => {
+		let getAverage = userHydration.findHydrationAverage();
 
-  it('findOuncesForDay method should return the ounces consumed for the given day', () => {
+		expect(() => { userHydration.findHydrationAverage(userId) }).to.throw(Error);
+  	})
+
+  	it('findOuncesForDay method should return the ounces consumed for the given day', () => {
 
 		let getData = userHydration.findOuncesForDay('2019/06/15');
 
@@ -55,7 +61,7 @@ describe('Hydration', () => {
 	
 	it('if no date is given when invoked, findOuncesForDay method should throw an error', () => {
 		expect(() => { userHydration.findOuncesForDay() }).to.throw(Error);
-  })
+  	})
 
 	it('findOuncesForWeek method should return the ounces consumed for the past 7 days, when given any date', () => {
 		let getData = userHydration.findOuncesForWeek('2019/07/17');
