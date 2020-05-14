@@ -3,6 +3,7 @@ const expect = chai.expect;
 
 const User = require('../src/User-class');
 const userData = require('../data/users');
+const hydrationData = require('../data/hydration');
 const UserRepository = require('../src/UserRepository');
 const Hydration = require('../src/Hydration');
 
@@ -21,7 +22,8 @@ describe('Hydration', () => {
 
 		userRepo = new UserRepository([user1, user2, user3]);
 
-		userHydration = new Hydration(user1);
+		userHydration = new Hydration(user1, hydrationData);
+		userHydration.correctHydroData();
 	})
 
 	it('should be a function', () => {
@@ -33,7 +35,7 @@ describe('Hydration', () => {
 	});
 
 	it('should hold data from the user', () => {
-		expect(userHydration).to.deep.equal(user1);
+		expect(userHydration.id).to.equal(user1.id);
 	})
 	
 	it('should throw an error if a new Hydration has no user argument', () => {
