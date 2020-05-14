@@ -46,7 +46,8 @@ describe('Hydration', () => {
 		expect(getAverage).to.equal(58);
   })
 
-	it('findOuncesForDay method should return the ounces consumed for the given day', () => {
+  it('findOuncesForDay method should return the ounces consumed for the given day', () => {
+
 		let getData = userHydration.findOuncesForDay('2019/06/15');
 
 		expect(getData).to.equal(37);
