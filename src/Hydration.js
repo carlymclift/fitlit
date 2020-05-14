@@ -21,17 +21,27 @@ class Hydration {
 	}
 
 	findOuncesForDay(date) {
-		let foundData = hydrationData.find(singleData => {
-			return singleData.userID === this.id && singleData.date === date;
+		let foundData = hydrationData.find(user => {
+			return user.userID === this.id && user.date === date;
 		})
 		return foundData.numOunces
 	}
 
-	findOuncesForWeek() {
+	findOuncesForWeek(date) {
+		let allUsersDates = hydrationData.filter(user => {
+			return user.userID === this.id;
+		})
 
-		//return array of past 7 days
+		let currentIndex = allUsersDates.findIndex(x => x.date === date);
+		
+		let pastWeek = [];
+		for (let i = currentIndex - 6; i <= currentIndex; i++) {
+				pastWeek.push(allUsersDates[i].numOunces);
+			}
+			
+			return pastWeek
+		}
 	}
-}
 
 if (typeof module !== 'undefined') {
 	module.exports = Hydration;
