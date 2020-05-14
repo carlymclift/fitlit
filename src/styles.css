@@ -6,16 +6,21 @@ h1, h2 {
 
 .activity-sec {
     flex-grow: 4;
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 15px;
-    padding: 30px;
+		padding: 30px; */
+		display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .card {
     background-color: lightblue;
     border-radius: 25px;
-    opacity: 0.6;
+		opacity: 0.6;
+		margin-top: 9px;
 }
 
 h3, 
