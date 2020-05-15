@@ -1,11 +1,11 @@
 class Hydration {
 	constructor(userInfo, givenHydroData) {
-		this.id = userInfo.id,
+		this.id = userInfo.id;
 		this.userHydroData = givenHydroData;
 	}
 	
 	correctHydroData() {
-		let currentHydration = this.userHydroData.filter(user => {
+		const currentHydration = this.userHydroData.filter(user => {
 			return user.userID === this.id;
 		})
 		this.userHydroData = currentHydration;
@@ -20,6 +20,7 @@ class Hydration {
 	}
 
 	findOuncesForDay(date) {
+		//user hydrodata empty
 		let foundData = this.userHydroData.find(user => {
 			return user.date === date;
 		})
