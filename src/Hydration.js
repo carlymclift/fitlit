@@ -34,7 +34,7 @@ class Hydration {
 				pastWeek.push(this.userHydroData[i].numOunces);
 			}
 			
-			return pastWeek
+		return pastWeek;
 		}
 	}
 
