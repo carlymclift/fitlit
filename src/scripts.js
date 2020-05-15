@@ -32,10 +32,18 @@ const updateWelcome = (currentUser) => {
 
 const updateHydration = (currentHydro) => {
 	const ouncesForDay = currentHydro.findOuncesForDay('2019/09/22');
+	const ouncesForWeek = currentHydro.findOuncesForWeek('2019/09/22');
 
 	//avgH2o.innerText = `All user's daily average is `;
-	todayH2o.innerText = `Your water intake today is ${ouncesForDay}`;
-	weekh2o.innerText = `Your past week's water intake: `; //TODO: add in list
+	todayH2o.innerText = `Your water intake today is ${ouncesForDay} ounces`;
+	weekh2o.innerHTML = `<p>Your past week's water intake:</p>
+						<p>Monday: ${ouncesForWeek[0]} ounces</p>
+						<p>Tuesday: ${ouncesForWeek[1]} ounces</p>
+						<p>Wednesday: ${ouncesForWeek[2]} ounces</p>
+						<p>Thursday: ${ouncesForWeek[3]} ounces</p>
+						<p>Friday: ${ouncesForWeek[4]} ounces</p>
+						<p>Saturday: ${ouncesForWeek[5]} ounces</p>
+						<p>Today: ${ouncesForWeek[6]} ounces</p>`;
 }
 
 const updateSteps = () => { //TODO: pass in argument like other fn's
