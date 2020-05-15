@@ -32,7 +32,7 @@ const updateWelcome = (currentUser) => {
 const updateHydration = (currentHydro) => {
 	const ouncesForDay = currentHydro.findOuncesForDay('2019/09/22');
 	const ouncesForWeek = currentHydro.findOuncesForWeek('2019/09/22');
-	const avgOunces = currentHydro.findHydrationAverage();
+	const avgOunces = currentHydro.findHydrationAverage(hydrationData);
 
 	avgH2o.innerText = `All user's daily average is ${avgOunces}`;
 	todayH2o.innerText = `Your water intake today is ${ouncesForDay} ounces`;

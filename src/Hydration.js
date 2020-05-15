@@ -11,12 +11,12 @@ class Hydration {
 		this.userHydroData = currentHydration;
 	}
 
-	findHydrationAverage() {
-		let avHydration = hydrationData.reduce((accu, user) => {
+	findHydrationAverage(dataset) {
+		let avHydration = dataset.reduce((accu, user) => {
 			accu += user.numOunces;
 			return accu;
 		}, 0)
-		return Math.ceil(avHydration / hydrationData.length);
+		return Math.ceil(avHydration / dataset.length);
 	}
 
 	findOuncesForDay(date) {
