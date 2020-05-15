@@ -43,6 +43,10 @@ describe('Activity', () => {
 		expect(userAct.strideLength).to.equal(user1.strideLength);
 	})
 
+	it('should hold data from the user', () => {
+		expect(userAct.dailyStepGoal).to.equal(user1.dailyStepGoal);
+	})
+
 	it('should throw an error if a new Activity has no user arguments', () => {
 		expect(() => { new Activity() }).to.throw(Error);
 	})
@@ -67,7 +71,7 @@ describe('Activity', () => {
 		expect(() => { userAct.minActive() }).to.throw(Error);
 	})
 
-	it('weekMinActive method should return ___', () => {
+	it('weekMinActive method should return a list of the minutes active for the past week', () => {
 		let getMiles = userAct.weekMinActive('2019/09/22');
 
 		expect(getMiles).to.deep.equal([
@@ -79,7 +83,19 @@ describe('Activity', () => {
 		expect(() => { userAct.weekMinActive() }).to.throw(Error);
 	})
 
-	it('stepGoalResult method should return tell this user they didn\'t meet their goals for this date', () => {
+	it('weekMilesWalked method should return a list of the steps taken daily for the past week', () => {
+		let getSteps = userAct.weekMilesWalked('2019/09/22');
+
+		expect(getSteps).to.deep.equal([
+			9.01, 3.99, 8.12, 9.84, 11.4, 4.65, 6.57
+		]);
+	})
+
+	it('if no date is given when invoked, weekMilesWalked method should throw an error', () => {
+		expect(() => { userAct.weekMilesWalked() }).to.throw(Error);
+	})
+
+	it('stepGoalResult method should tell the user they didn\'t meet their goals for this date', () => {
 		let getStepGoalRes = userAct.stepGoalResult('2019/09/22');
 
 		expect(getStepGoalRes).to.equal('You did not meet your step goal today.');
@@ -89,7 +105,7 @@ describe('Activity', () => {
 		expect(() => { userAct.stepGoalResult() }).to.throw(Error);
 	})
 
-	it('daysGoalAchieved method should return tell this user they didn\'t meet their goals for this date', () => {
+	it('daysGoalAchieved method should list out the dates the stepGoal was reached', () => {
 		let goalDays = userAct.daysGoalAchieved();
 
 		expect(goalDays).to.deep.equal([
@@ -104,7 +120,7 @@ describe('Activity', () => {
 			"2019/09/20"]);
 	})
 
-	// MAKE SAD TEST FOR ^^^^^
+	//TODO: Make sad test or ^^
 
 	it('stairRecord should return user\'s record stair climb day', () => {
 		let getStairRecord = userAct.stairRecord();
@@ -113,9 +129,9 @@ describe('Activity', () => {
 			'You\'re stair climb record was 49 on 2019/07/11!');
 	})
 
-	// MAKE SAD TEST FOR ^^^^^
+	//TODO: Make sad test or ^^
 
-	it('allUserStairsClimbed method should return ___', () => {
+	it('allUserStairsClimbed method should return 27', () => {
 		let getAvStairs = userAct.allUserStairsClimbed(activityData, "2019/07/11");
 
 		expect(getAvStairs).to.equal(27);
@@ -125,7 +141,7 @@ describe('Activity', () => {
 		expect(() => { userAct.allUserStairsClimbed() }).to.throw(Error);
 	})
 
-	it('allUserSteps method should return ___', () => {
+	it('allUserSteps method should return 8074', () => {
 		let getAvSteps = userAct.allUserSteps(activityData, "2019/07/11");
 
 		expect(getAvSteps).to.equal(8074);
@@ -135,7 +151,7 @@ describe('Activity', () => {
 		expect(() => { userAct.allUserSteps() }).to.throw(Error);
 	})
 
-	it('allUserMinActive method should return ___', () => {
+	it('allUserMinActive method should return 163', () => {
 		let getAvMin = userAct.allUserMinActive(activityData, "2019/07/11");
 
 		expect(getAvMin).to.equal(163);

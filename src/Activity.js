@@ -42,6 +42,23 @@ class Activity {
 		return pastWeek;
 	}
 
+	weekMilesWalked(date) { //REFACTOR
+		let currentIndex = this.userActData.findIndex(x => x.date === date);
+
+		let pastWeek = [];
+		for (let i = currentIndex - 6; i <= currentIndex; i++) {
+			pastWeek.push(this.userActData[i].numSteps);
+		}
+
+		let miles = pastWeek.map(day => {
+			let stepsPerMile = 5280 / this.strideLength;
+			let milesWalked = day / stepsPerMile;
+			return Math.round(milesWalked * 100) / 100;
+		})
+
+		return miles;
+	}
+
 	stepGoalResult(date) {
 		let foundDate = this.userActData.find(user => {
 			return user.date === date;
@@ -106,8 +123,6 @@ class Activity {
 
 		return Math.ceil(avMinutes / filterDate.length);
 	}
-
-	//make another method!
 }
 
 if (typeof module !== 'undefined') {
