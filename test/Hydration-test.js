@@ -38,7 +38,7 @@ describe('Hydration', () => {
 		expect(userHydration.id).to.equal(user1.id);
 	})
 	
-	it('should throw an error if a new Hydration has no user argument', () => {
+	it('should throw an error if a new Hydration has no user arguments', () => {
 		expect(() => { new Hydration() }).to.throw(Error);
 	})
 
@@ -49,8 +49,6 @@ describe('Hydration', () => {
 	})
 	  
 	it('if no user id is given when invoked, findHydrationAverage method should throw an error', () => {
-		let getAverage = userHydration.findHydrationAverage(hydrationData);
-
 		expect(() => { userHydration.findHydrationAverage(userId) }).to.throw(Error);
   	})
 
