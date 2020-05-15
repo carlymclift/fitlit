@@ -11,16 +11,15 @@ class Hydration {
 		this.userHydroData = currentHydration;
 	}
 
-	findHydrationAverage(userId) {
-		let avHydration = this.userHydroData.reduce((ounces, user) => {
-			ounces += user.numOunces / this.userHydroData.length
-			return ounces
+	findHydrationAverage() {
+		let avHydration = hydrationData.reduce((accu, user) => {
+			accu += user.numOunces;
+			return accu;
 		}, 0)
-		return Math.round(avHydration);
+		return Math.ceil(avHydration / hydrationData.length);
 	}
 
 	findOuncesForDay(date) {
-		//user hydrodata empty
 		let foundData = this.userHydroData.find(user => {
 			return user.date === date;
 		})

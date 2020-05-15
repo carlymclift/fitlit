@@ -5,7 +5,6 @@ let userAddress = document.querySelector('.address');
 let userEmail = document.querySelector('.email');
 let userStepGoal = document.querySelector('.user-step-goal');
 let averageStepGoal = document.querySelector('.average-step-goal');
-let waterIntakeForDay = document.querySelector('.water-intake-for-day');
 let avgH2o = document.querySelector('.h2o-avg');
 let todayH2o = document.querySelector('.today-h2o');
 let weekh2o = document.querySelector('.week-h2o');
@@ -33,8 +32,9 @@ const updateWelcome = (currentUser) => {
 const updateHydration = (currentHydro) => {
 	const ouncesForDay = currentHydro.findOuncesForDay('2019/09/22');
 	const ouncesForWeek = currentHydro.findOuncesForWeek('2019/09/22');
+	const avgOunces = currentHydro.findHydrationAverage();
 
-	//avgH2o.innerText = `All user's daily average is `;
+	avgH2o.innerText = `All user's daily average is ${avgOunces}`;
 	todayH2o.innerText = `Your water intake today is ${ouncesForDay} ounces`;
 	weekh2o.innerHTML = `<p>Your past week's water intake:</p>
 						<p>Monday: ${ouncesForWeek[0]} ounces</p>
