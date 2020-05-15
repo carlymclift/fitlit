@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 let welcomeTitle = document.querySelector('.welcome');
 let userCardName = document.querySelector('.name');
 let userAddress = document.querySelector('.address');
@@ -8,51 +9,45 @@ let avgH2o = document.querySelector('.h2o-avg');
 let todayH2o = document.querySelector('.today-h2o');
 let weekh2o = document.querySelector('.week-h2o');
 
-let userArray = [];
-
-
-userData.forEach(user => {
-	let currentUser = new User(user);
-	userArray.push(currentUser);
-})
-
+const userArray = userData.map((user) => new User(user));
+const userRepo = new UserRepository(userArray);
 let randomUser = {};
-const currentUserData = new UserRepository(userArray);
-let currentHydration = new Hydration(randomUser, hydrationData);
-currentHydration.correctHydroData();
+let currentHydration = {};
 
+const chooseRandom = () => {
+	const randomNum = (Math.floor(Math.random() * userRepo.data.length));
 
-let chooseRandom = () => {
-	let randomNum = (Math.floor(Math.random() * currentUserData.data.length));
-	randomUser = currentUserData.data[randomNum];
+	randomUser = userRepo.data[randomNum];
+	currentHydration = new Hydration(randomUser, hydrationData);
+	currentHydration.correctHydroData();	
 }
 
-let updateWelcome = () => {
-	userCardName.innerText = `Name: ${randomUser.name}`;
-	userAddress.innerText = `Address: ${randomUser.address}`;
-	userEmail.innerText = `Email: ${randomUser.email}`;
+const updateWelcome = (currentUser) => {
+	welcomeTitle.innerText = `Welcome ${currentUser.name}!`;
+	userCardName.innerText = `Name: ${currentUser.name}`;
+	userAddress.innerText = `Address: ${currentUser.address}`;
+	userEmail.innerText = `Email: ${currentUser.email}`;
 }
 
-let updateHydration = () => {
-	let ouncesForDay = currentHydration.findOuncesForDay('2019/09/22');
+const updateHydration = (currentHydro) => {
+	const ouncesForDay = currentHydro.findOuncesForDay('2019/09/22');
 
 	//avgH2o.innerText = `All user's daily average is `;
 	todayH2o.innerText = `Your water intake today is ${ouncesForDay}`;
-	weekh2o.innerText = `Your past week's water intake: `;
+	weekh2o.innerText = `Your past week's water intake: `; //TODO: add in list
 }
 
-let updateSteps = () => {
+const updateSteps = () => { //TODO: pass in argument like other fn's
 	userStepGoal.innerText = `Your Step Goal: ${randomUser.dailyStepGoal}`;
-	averageStepGoal.innerText = `Average step goal for all users: ${currentUserData.fetchAverageStepGoal()}`
+	averageStepGoal.innerText = 
+		`Average step goal for all users: ${userRepo.fetchAverageStepGoal()}`;
 }
 
-let updateOnload = () => {
+const updateOnload = () => {
 	chooseRandom();
-	welcomeTitle.innerText = `Welcome ${randomUser.name}!`;
-
-	updateWelcome();
+	updateWelcome(randomUser);
+	updateHydration(currentHydration);
 	updateSteps();
-	updateHydration();
 }
 
 window.addEventListener('load', updateOnload);
