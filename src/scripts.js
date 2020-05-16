@@ -17,7 +17,7 @@ let currentActivity = {};
 
 const chooseRandom = () => {
 	const randomNum = (Math.floor(Math.random() * userRepo.data.length));
-
+	
 	randomUser = userRepo.data[randomNum];
 	currentHydration = new Hydration(randomUser, hydrationData);
 	currentHydration.correctHydroData();
@@ -26,10 +26,28 @@ const chooseRandom = () => {
 }
 
 const updateWelcome = (currentUser) => {
-	welcomeTitle.innerText = `Welcome ${currentUser.name}!`;
+	welcomeTitle.innerText = `Hello ${currentUser.findName()}!`;
 	userCardName.innerText = `Name: ${currentUser.name}`;
 	userAddress.innerText = `Address: ${currentUser.address}`;
 	userEmail.innerText = `Email: ${currentUser.email}`;
+}
+
+const updateHydration = (currentHydro) => {
+	const ouncesForDay = currentHydro.findOuncesForDay('2019/09/22');
+	const ouncesForWeek = currentHydro.findOuncesForWeek('2019/09/22');
+	const avgOunces = currentHydro.findHydrationAverage(hydrationData);
+
+	h2o.innerHTML = `
+		<p>All user's average water intake is ${avgOunces} ounces per day.</br></br>
+		Your water intake today was ${ouncesForDay} ounces</br></br>
+		Your past week's water intake:</br></br>
+		Saturday: ${ouncesForWeek[5]} ounces</br></br>
+		Friday: ${ouncesForWeek[4]} ounces</br></br>
+		Thursday: ${ouncesForWeek[3]} ounces</br></br>
+		Wednesday: ${ouncesForWeek[2]} ounces</br></br>
+		Tuesday: ${ouncesForWeek[1]} ounces</br></br>
+		Monday: ${ouncesForWeek[0]} ounces
+		`;
 }
 
 const updateMiles = (currentAct) => {
@@ -39,13 +57,13 @@ const updateMiles = (currentAct) => {
 	userMiles.innerHTML = `
 		<p>Today you walked ${todayMiles} miles.</br></br>
 		In the past week you've walked:</br></br>
-		Monday: ${weekMiles[0]} miles.</br></br>
-		Tuesday: ${weekMiles[1]} miles.</br></br>
-		Wednesday: ${weekMiles[2]} miles.</br></br>
-		Thursday: ${weekMiles[3]} miles.</br></br>
-		Friday: ${weekMiles[4]} miles.</br></br>
 		Saturday: ${weekMiles[5]} miles.</br></br>
-		Today: ${weekMiles[6]} miles.`;
+		Friday: ${weekMiles[4]} miles.</br></br>
+		Thursday: ${weekMiles[3]} miles.</br></br>
+		Wednesday: ${weekMiles[2]} miles.</br></br>
+		Tuesday: ${weekMiles[1]} miles.</br></br>
+		Monday: ${weekMiles[0]} miles.
+		`;
 }
 
 const updateMinAct = (currentAct) => {
@@ -56,14 +74,14 @@ const updateMinAct = (currentAct) => {
 	userMinAct.innerHTML = `
 		<p>Today you were active for ${todayMin} minutes.</br></br>
 		Today's average minutes active for all users was ${allUserTodayMin} minutes.</br></br>
-		This past week your active minutes per day were:</br></br>
-		Monday: ${weekMin[0]} minutes.</br></br>
-		Tuesday: ${weekMin[1]} minutes.</br></br>
-		Wednesday: ${weekMin[2]} minutes.</br></br>
-		Thursday: ${weekMin[3]} minutes.</br></br>
-		Friday: ${weekMin[4]} minutes.</br></br>
+		Your past week's activity:</br></br>
 		Saturday: ${weekMin[5]} minutes.</br></br>
-		Today: ${weekMin[6]} minutes.`;
+		Friday: ${weekMin[4]} minutes.</br></br>
+		Thursday: ${weekMin[3]} minutes.</br></br>
+		Wednesday: ${weekMin[2]} minutes.</br></br>
+		Tuesday: ${weekMin[1]} minutes.</br></br>
+		Monday: ${weekMin[0]} minutes.</br></br>
+		`;
 }
 
 const updateSteps = (currentAct) => {
@@ -76,7 +94,6 @@ const updateSteps = (currentAct) => {
 		${todaySteps}</br></br>
 		Today's average steps for all users was ${allUserTodaySteps} steps.
 		`;
-	
 		//<p>Here's the past log for all the days you achieved your step goal: ${goalDays}</p>
 }
 
@@ -88,24 +105,6 @@ const updateStairs = (currentAct) => {
 		<p>${stairRecord}</br></br>
 		Today's average flights of stairs climbed for all users was ${allUserStairs} flights.
 		`;
-}
-
-const updateHydration = (currentHydro) => {
-	const ouncesForDay = currentHydro.findOuncesForDay('2019/09/22');
-	const ouncesForWeek = currentHydro.findOuncesForWeek('2019/09/22');
-	const avgOunces = currentHydro.findHydrationAverage(hydrationData);
-
-	h2o.innerHTML = `
-		<p>All user's daily average is ${avgOunces}</br></br>
-		Your water intake today is ${ouncesForDay} ounces</br></br>
-		Your past week's water intake:</br></br>
-		Monday: ${ouncesForWeek[0]} ounces</br></br>
-		Tuesday: ${ouncesForWeek[1]} ounces</br></br>
-		Wednesday: ${ouncesForWeek[2]} ounces</br></br>
-		Thursday: ${ouncesForWeek[3]} ounces</br></br>
-		Friday: ${ouncesForWeek[4]} ounces</br></br>
-		Saturday: ${ouncesForWeek[5]} ounces</br></br>
-		Today: ${ouncesForWeek[6]} ounces`;
 }
 
 const updateOnload = () => {
