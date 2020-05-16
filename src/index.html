@@ -6,68 +6,60 @@
     <title>Activity Tracker</title>
   </head>
   <body>
-		<h1>Fit Lit Acivity Tracker</h1>
-		<h1 class="welcome">Hello, User!</h1>
+		<section class="welcome-sec">
+			<h1>Fit Lit Health Tracker</h1>
+			<h1 class="welcome">Hello, User!</h1>
+			<h3 class="date">Today is Sunday 2019/09/22</h3>
+		</section>
     <section class="activity-sec">
       <div class="user-card card">
-        <section>
-          <h3>Your Contact Information</h3>
-        </section>
+        <h3>Contact Information</h3>
 				<p class="name">Name:</p>
 				<p class="address">Address:</p>
 				<p class="email">Email:</p>
-      </div>
+			</div>
+			
       <div class="water-card card">
-        <section>
-          <h3>Water Intake</h3>
-        </section>
-				<p class="h2o-avg">All user's daily average is </p>
-				<p class="today-h2o">Your water intake is </p>
-				<p class="week-h2o">Last week you drank </p>
-      </div>
+        <h3>Hydration</h3>
+				<div class="h2o"></div>
+			</div>
+			
       <div class="sleep-card card">
-        <section>
-          <h3>Sleep</h3>
-        </section>
-        <p>This is where the sleep info will go</p>
-      </div>
+        <h3>Sleep</h3>
+        <div>This is where the sleediv info will go</div>
+			</div>
+			
       <div class="miles-card card">
-        <section>
-          <h3>Miles Walked:</h3>
-        </section>
-        <p>How many miles they have walked based on steps of a given day</p>
-      </div>
-      <div class="minutes-active-card card">
-        <section>
-          <h3>Minutes Active</h3>
-        </section>
-        <p>This is where minutes active for a given day and for the week will be logged</p>
-      </div>
+        <h3>Miles Walked</h3>
+				<div class="miles-walked"></div>
+			</div>
+			
+      <div class="min-active-card card">
+        <h3>Minutes Active</h3>
+        <div class="min-active"></div>
+			</div>
+			
       <div class="step-goal-card card">
-        <section>
-          <h3>Step Goals:</h3>
-        </section>
-        <p class="user-step-goal">Your Step Goal:</p>
-        <p class="average-step-goal">Average Step Goal:</p>
-      </div>
+        <h3>Steps Taken</h3>
+        <div class="steps">Average Step Goal:</div>
+			</div>
+			
       <div class="stairs-card card">
-        <section>
-          <h3>Stair Climbing Goals:</h3>
-        </section>
-        <p>climbing record, climbed/day</p>
-      </div>
-      <div class="card">
-        <section>
-          <h3>Extra Card</h3>
-        </section>
-        <p>For anything</p>
+        <h3>Stairs Climbed</h3>
+        <div class="stairs"></div>
+			</div>
+			
+      <div class="card it5-card">
+        <h3>Iteration 5</h3>
+        <div></div>
       </div>
     </section>
     <script type="text/javascript" src="../data/users.js"></script>
     <script type="text/javascript" src="../data/hydration.js"></script>
     <script type="text/javascript" src="../data/sleep.js"></script>
     <script type="text/javascript" src="../data/activity.js"></script>
-		<script type="text/javascript" src="./Hydration.js"></script>		
+		<script type="text/javascript" src="./Hydration.js"></script>
+		<script type="text/javascript" src="./Activity.js"></script>				
 		<script type="text/javascript" src="./User-class.js"></script>		
 		<script type="text/javascript" src="./UserRepository.js"></script>
 		<script type="text/javascript" src="./scripts.js"></script>		

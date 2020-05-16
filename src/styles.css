@@ -1,4 +1,4 @@
-h1, h2 {
+h1, h2, .date {
     text-align: center;
     font-family: Arial, sans-serif;
     font-weight: 200;
@@ -6,28 +6,68 @@ h1, h2 {
 
 .activity-sec {
     flex-grow: 4;
-    /* display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 15px;
-		padding: 30px; */
 		display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
-.card {
-    background-color: lightblue;
-    border-radius: 25px;
-		opacity: 0.6;
-		margin-top: 9px;
+.welcom-sec {
+	background-color: grey;
 }
 
 h3, 
-p {
-    padding: 20px;
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 100;
+.card {
+	padding: 6px;
+	color: black;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 100;
+	text-align: center;
 }
 
+/* p {
+	padding: 14px;
+} */
+
+h3 {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.card {
+		background-color: lightblue;
+		border-radius: 25px;
+		opacity: 0.6;
+		margin-top: 40px;
+		margin-left: 3px;
+		min-height: 450px;
+    max-height: 450px;
+    min-width: 300px;
+    max-width: 300px;
+		overflow: scroll;
+		border: 1px grey solid;
+		padding: 14px;
+}
+
+.user-card,
+.miles-active-card {
+	background-color: #65524D;
+}
+
+.water-card,
+.stairs-card {
+	background-color: #817E9F;
+}
+
+.sleep-card,
+.it5-card {
+	background-color: #7FC29B;
+}
+
+.min-active-card {
+	background-color: #D7F171;
+}
+
+.step-goal-card {
+	background-color: #B5EF8A;
+}
