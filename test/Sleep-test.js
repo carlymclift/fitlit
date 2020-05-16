@@ -24,7 +24,7 @@ describe('Sleep', () => {
 		userRepo = new UserRepository([user1, user2, user3]);
 
 		userSleep = new Sleep(user1, sleepData);
-		userSleep.correctSleepData();
+		userSleep.getUserSleepData();
 	})
 
 	it('should be a function', () => {
