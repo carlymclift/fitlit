@@ -58,7 +58,20 @@ class Sleep {
         }, 0)
         return Math.round(average / this.userSleepData.length)
     }
-}
+
+    findBestSleepQuality(user) {
+        let currentIndex = this.userSleepData.findIndex(x => x.date === date);
+
+		let sleepyPpl = [];
+		for (let i = currentIndex - 6; i <= currentIndex; i++) {
+			if(this.userSleepData[i] > 3) {
+                sleepPpl.push(this.userSleepData[i].userID); //Find name of user based on id
+            }
+        }
+        return sleepyPpl;
+    }
+
+    
 
 if (typeof module !== 'undefined') {
 	module.exports = Sleep;
