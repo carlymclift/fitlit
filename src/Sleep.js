@@ -11,7 +11,7 @@ class Sleep {
     }
   
     findUserAverageSleep(dataset) {
-      let avSleep = dataset.reduce((acc, user) => {
+      const avSleep = dataset.reduce((acc, user) => {
         acc += user.hoursSlept;
         return acc;
       }, 0)
@@ -19,7 +19,7 @@ class Sleep {
     }
   
     findUserAverageQuality(dataset) {
-      let avSleepQuality = dataset.reduce((acc, user) => {
+      const avSleepQuality = dataset.reduce((acc, user) => {
         acc += user.sleepQuality;
         return acc;
       }, 0)
@@ -27,14 +27,14 @@ class Sleep {
     }
   
     findUserSleepForDay(date) {
-      let sleepData = this.userSleepData.find(user => {
+      const sleepData = this.userSleepData.find(user => {
         return user.date === date;
       })
       return sleepData.hoursSlept;
     }
   
     findUserSleepQualityForDay(date) {
-      let sleepData = this.userSleepData.find(user => {
+      const sleepData = this.userSleepData.find(user => {
         return user.date === date;
       })
       return sleepData.sleepQuality;
@@ -43,7 +43,7 @@ class Sleep {
     findUserAverageSleepForWeek(date) {
       let currentIndex = this.userSleepData.findIndex(x => x.date === date);
   
-      let pastWeek = [];
+      const pastWeek = [];
       for (let i = currentIndex - 6; i <= currentIndex; i++) {
         pastWeek.push(this.userSleepData[i].hoursSlept);
       }
@@ -52,9 +52,9 @@ class Sleep {
     }
   
     findUserAverageQualityForWeek(date) {
-      let currentIndex = this.userSleepData.findIndex(x => x.date === date);
+      const currentIndex = this.userSleepData.findIndex(x => x.date === date);
   
-      let pastWeek = [];
+      const pastWeek = [];
       for (let i = currentIndex - 6; i <= currentIndex; i++) {
         pastWeek.push(this.userSleepData[i].sleepQuality);
       }
@@ -63,7 +63,7 @@ class Sleep {
     }
   
     findAverageSleep() {
-      let average = this.userSleepData.reduce((acc, user) => {
+      const average = this.userSleepData.reduce((acc, user) => {
         acc += user.hoursSlept
         return acc;
       }, 0)
