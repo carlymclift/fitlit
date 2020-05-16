@@ -98,7 +98,7 @@ describe('Activity', () => {
 	it('stepGoalResult method should tell the user they didn\'t meet their goals for this date', () => {
 		let getStepGoalRes = userAct.stepGoalResult('2019/09/22');
 
-		expect(getStepGoalRes).to.equal('You did not meet your step goal today.');
+		expect(getStepGoalRes).to.equal('You did not meet your step goal today, with 8072 steps.');
 	})
 
 	it('if no date is given when invoked, stepGoalResult method should throw an error', () => {
@@ -126,7 +126,7 @@ describe('Activity', () => {
 		let getStairRecord = userAct.stairRecord();
 
 		expect(getStairRecord).to.equal(
-			'You\'re stair climb record was 49 on 2019/07/11!');
+			'Your stair climb record was 49 flights on 2019/07/11!');
 	})
 
 	//TODO: Make sad test or ^^
