@@ -108,7 +108,7 @@ class Activity {
 
 	stairRecord() {
 		let sortStair = this.userActData.sort((a, b) => b.flightsOfStairs - a.flightsOfStairs);
-		return `You're stair climb record was ${sortStair[0].flightsOfStairs} flights on ${sortStair[0].date}!`;
+		return `Your stair climb record was ${sortStair[0].flightsOfStairs} flights on ${sortStair[0].date}!`;
 	}
 
 	allUserStairsClimbed(dataset, date) {
