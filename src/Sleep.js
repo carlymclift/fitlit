@@ -64,9 +64,9 @@ class Sleep {
 
 		let sleepyPpl = [];
 		for (let i = currentIndex - 6; i <= currentIndex; i++) {
-			if (this.userSleepData[i] > 3) {
-        sleepPpl.push(this.userSleepData[i].userID); //Find name of user based on id, right now I think it's returning ID #
-          }
+			if(this.userSleepData[i] > 3) {
+                sleepPpl.push(this.userSleepData[i].userID); //Find name of user based on id, right now I think it's returning ID #
+            }
         }
         return sleepyPpl;
     }
@@ -76,7 +76,6 @@ class Sleep {
     }
 
     /// Make metric of our own that we want to display
-}
 
 if (typeof module !== 'undefined') {
 	module.exports = Sleep;
