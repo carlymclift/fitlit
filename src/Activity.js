@@ -29,7 +29,8 @@ class Activity {
 		let pastWeek = [];
 		for (let i = currentIndex - 6; i <= currentIndex; i++) {
 			pastWeek.push(this.userActData[i].numSteps);
-		}
+		} //TODO: replace w/ .slice & .map
+			//similar to: allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality)
 
 		let miles = pastWeek.map(day => {
 			let stepsPerMile = 5280 / this.strideLength;
@@ -54,7 +55,8 @@ class Activity {
 		let pastWeek = [];
 		for (let i = currentIndex - 6; i <= currentIndex; i++) {
 			pastWeek.push(this.userActData[i].minutesActive);
-		}
+		} //TODO: replace w/ .slice & .map
+			//similar to: allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality)
 		
 		return pastWeek;
 	}

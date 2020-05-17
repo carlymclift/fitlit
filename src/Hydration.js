@@ -32,7 +32,8 @@ class Hydration {
 		let pastWeek = [];
 		for (let i = currentIndex - 6; i <= currentIndex; i++) {
 				pastWeek.push(this.userHydroData[i].numOunces);
-			}
+			} //TODO: replace w/ .slice & .map
+				//similar to: allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality)
 			
 			return pastWeek
 		}
