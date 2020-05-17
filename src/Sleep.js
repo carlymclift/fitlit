@@ -46,7 +46,8 @@ class Sleep {
       const pastWeek = [];
       for (let i = currentIndex - 6; i <= currentIndex; i++) {
         pastWeek.push(this.userSleepData[i].hoursSlept);
-      }
+      } //TODO: replace w/ .slice & .map
+				//similar to: allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality)
   
       return Math.round((pastWeek.reduce((a, b) => a + b)) / 7);
     }
@@ -57,7 +58,8 @@ class Sleep {
       const pastWeek = [];
       for (let i = currentIndex - 6; i <= currentIndex; i++) {
         pastWeek.push(this.userSleepData[i].sleepQuality);
-      }
+      } //TODO: replace w/ .slice & .map
+				//similar to: allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality)
   
       return Math.round((pastWeek.reduce((a, b) => a + b)) / 7);
     }
@@ -68,63 +70,49 @@ class Sleep {
         return acc;
       }, 0)
       return Math.round(average / this.userSleepData.length)
-    }
-  
-    // findBestSleepQualityForWeek(date) {
-    //     let currentIndex = this.userSleepData.findIndex(x => x.date === date);
-  
-    // 	let sleepyPpl = [];
-    // 	for (let i = currentIndex - 6; i <= currentIndex; i++) {
-    // 		if(this.userSleepData[i].sleepQuality > 3) {
-    //             sleepyPpl.push(this.userSleepData[i].userID); //Find name of user based on id, right now I think it's returning ID #
-    //         }
-    //     }
-    //     return sleepyPpl;
-    // }
-  
-    // findBestSleepQualityForWeek(date) {
-    //     // let userIds = this.getUserSleepData()
-    //     return this.userSleepData.reduce((finalAcc, id) => {
-    //       let thisUsersStuff = this.userSleepData.reduce((acc, stat) => {
-    //         if (stat.userID === id) {
-    //           acc.push(stat)
-    //         }
-    //         return acc
-    //       }, [])
-    //       let index = thisUsersStuff.findIndex(stat => stat.date === date);
-    //       let justThisWeek = thisUsersStuff.slice(index - 6, index + 1);
-    //       let fakeAcc = 0;
-    //       let userId = 0;
-    //       justThisWeek.forEach(stat => {
-    //         fakeAcc += stat.sleepQuality / 7;
-    //         userId = stat.userID
-    //       })
-    //       if (fakeAcc > 3) {
-    //         finalAcc.push(userId)
-    //       }
-    //       return finalAcc
-    //     }, [])
-    //   }
-  
-    // findBestSleepQualityForWeek(date) {
-    //     const weekOfUsersFn = this.findUserAverageQualityForWeek(date)
-    //     const bestSlepers = [];
-    //     for (let key in weekOfUsersFn) {
-    //       if ((weekOfUsersFn[key].reduce((avgQuality, sleepQuality) => {
-    //         avgQuality += sleepQuality;
-    //         return avgQuality
-    //       }, 0) / weekOfUsersFn[key].length) > 3) {
-    //         bestSlepers.push(parseInt(key))
-    //       }
-    //     }
-    //     return bestSlepers
-    //   }
-  
-    findUsersWhoSleptMost() {
-  
-    }
-  
-    /// Make metric of our own that we want to display
+		}
+		
+		findSleepiest(dataset, date) {
+			const filterDate = dataset.filter(dataPt => {
+				return dataPt.date === date;
+			})
+
+			const sortedSleepies = filterDate.sort((a, b) => b.hoursSlept - a.hoursSlept);
+			
+			//TODO: find user's name based off their ID
+			return `User #${sortedSleepies[0].userID} slept the most this day, they slept ${sortedSleepies[0].hoursSlept} hours -- WOW!`
+		}
+		
+		findBestSleepers(dataset, date) {
+			const allUsersSleepObj = dataset.reduce((accu, dataPt) => {
+				if (!accu[dataPt.userID]) {
+					accu[dataPt.userID] = [];
+				}
+				accu[dataPt.userID].push(dataPt);
+				return accu;
+			}, {})
+
+			const userIDs = Object.keys(allUsersSleepObj);
+
+			const sleepUsers = userIDs.reduce((accu, user) => {
+				const sleepDate = allUsersSleepObj[user].find(x => x.date === date);
+				const firstIndex = allUsersSleepObj[user].indexOf(sleepDate);
+				const weekSleepQual = 
+					allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality);
+
+				const avg = weekSleepQual.reduce((accu, num) => {
+					return accu += num / weekSleepQual.length;
+				}, 0);
+
+				if (avg > 3) {
+					accu.push(Number(user));
+				}
+
+				return accu
+			}, []);
+
+			return sleepUsers;						
+		}
   }
   
   if (typeof module !== 'undefined') {
