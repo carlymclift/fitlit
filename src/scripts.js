@@ -97,9 +97,9 @@ const updateSteps = (currentAct) => {
 	userSteps.innerHTML = `
 		<p>You're daily step goal is ${randomUser.dailyStepGoal} steps.</br></br>
 		${todaySteps}</br></br>
+		Here's the past log for all the days you achieved your step goal: ${goalDays}</br></br>
 		Today's average steps for all users was ${allUserTodaySteps} steps.
 		`;
-		//<p>Here's the past log for all the days you achieved your step goal: ${goalDays}</p>
 }
 
 const updateStairs = (currentAct) => {
@@ -116,7 +116,7 @@ const updateSleepTime = (currSleep) => {
 	const todaySleep = currSleep.findUserSleepForDay('2019/09/22');
 	const weekSleep = currSleep.findUserSleepForWeek('2019/09/22');
 	const avSleep = currSleep.findUserAverageSleep(sleepData);
-	const mostSleep = currSleep.findSleepiest(sleepData, '2019/09/22');
+	const mostSleep = currSleep.findSleepiest(sleepData, '2019/09/22', userRepo);
 	const avSleepTime = currSleep.findAverageSleep();
 
 	userSleepTime.innerHTML = `
@@ -139,7 +139,7 @@ const updateSleepQuality = (currSleep) => {
 	const todayQuality = currSleep.findUserSleepQualityForDay('2019/09/22');
 	const weekQuality = currSleep.findUserQualityForWeek('2019/09/22');
 	const avQuality = currSleep.findUserAverageQuality(sleepData);
-	const bestSleep = currSleep.findBestSleepers(sleepData, '2019/09/22');
+	const bestSleep = currSleep.findBestSleepers(sleepData, '2019/09/22', userRepo);
 	const avSleepQuality = currSleep.findAverageQuality();
 
 	userSleepQuality.innerHTML = `
