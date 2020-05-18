@@ -1,3 +1,5 @@
+// const userData = require('../data/users');
+
 class Sleep {
     constructor(userInfo, givenSleepData) {
       this.id = userInfo.id;
@@ -80,18 +82,21 @@ class Sleep {
       return Math.round(average / this.userSleepData.length)
 		}
 		
-		findSleepiest(dataset, date) {
+		findSleepiest(dataset, date, givenClass) {
 			const filterDate = dataset.filter(dataPt => {
 				return dataPt.date === date;
 			})
 
 			const sortedSleepies = filterDate.sort((a, b) => b.hoursSlept - a.hoursSlept);
 			
-			//TODO: find user's name based off their ID
-			return `User #${sortedSleepies[0].userID} slept the most this day, they slept ${sortedSleepies[0].hoursSlept} hours -- WOW!`
+			const userName = givenClass.data.find(user => {
+				return user.id === sortedSleepies[0].userID;
+			}).name;
+
+			return `User ${userName} slept the most this day, they slept ${sortedSleepies[0].hoursSlept} hours -- WOW!`
 		}
 		
-		findBestSleepers(dataset, date) {
+		findBestSleepers(dataset, date, givenClass) {
 			const allUsersSleepObj = dataset.reduce((accu, dataPt) => {
 				if (!accu[dataPt.userID]) {
 					accu[dataPt.userID] = [];
@@ -111,9 +116,14 @@ class Sleep {
 				const avg = weekSleepQual.reduce((accu, num) => {
 					return accu += num / weekSleepQual.length;
 				}, 0);
-
+				
 				if (avg > 3) {
-					accu.push(Number(user));
+					let userName;
+					userName = givenClass.data.find(currentUser => {
+						return currentUser.id === Number(user);
+					});
+
+					accu.push(userName.name);
 				}
 
 				return accu

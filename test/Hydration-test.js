@@ -77,8 +77,4 @@ describe('Hydration', () => {
 			82, 72, 86, 53, 23, 48, 68
 		]);
 	})
-	
-	it('if no date is given when invoked, findOuncesForWeek method should throw an error', () => {
-		expect(() => { userHydration.findOuncesForWeek() }).to.throw(Error);
-  })
 })
