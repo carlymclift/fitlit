@@ -8,12 +8,15 @@ let userMiles = document.querySelector('.miles-walked');
 let userMinAct = document.querySelector('.min-active');
 let userSteps = document.querySelector('.steps');
 let userStairs = document.querySelector('.stairs');
+let userSleepTime = document.querySelector('.sleep-time');
+let userSleepQuality = document.querySelector('.sleep-quality');
 
 const userArray = userData.map((user) => new User(user));
 const userRepo = new UserRepository(userArray);
 let randomUser = {};
 let currentHydration = {};
 let currentActivity = {};
+let currentSleep = {};
 
 const chooseRandom = () => {
 	const randomNum = (Math.floor(Math.random() * userRepo.data.length));
@@ -23,6 +26,8 @@ const chooseRandom = () => {
 	currentHydration.correctHydroData();
 	currentActivity = new Activity(randomUser, activityData);
 	currentActivity.correctActData();
+	// currentSleep = new Sleep(randomUser, sleepData);
+	// currentSleep.correctSleepData();
 }
 
 const updateWelcome = (currentUser) => {
@@ -107,6 +112,38 @@ const updateStairs = (currentAct) => {
 		`;
 }
 
+const updateSleepTime = (currSleep) => {
+	const todaySleep = currSleep.findUserSleepForDay('2019/09/22');
+	const weekSleep = currSleep.findUserSleepForWeek('2019/09/22');
+
+	userSleepTime.innerHTML = `
+			<p>In the past day you slept ${todaySleep} hours.</br></br>
+			Your sleep in the last week:</br></br>
+			Saturday: ${weekSleep[5]}</br></br>
+			Friday: ${weekSleep[4]}</br></br>
+			Thurdsay: ${weekSleep[3]}</br></br>
+			Wednesday: ${weekSleep[2]}</br></br>
+			Tuesday: ${weekSleep[1]}</br></br>
+			Monday: ${weekSleep[0]}</br></br>
+	`
+}
+
+const updateSleepQuality = (currSleep) => {
+	const todayQuality = currSleep.findUserSleepQualityForDay('2019/09/22');
+	const weekQuality = currSleep.findUserQualityForWeek('2019/09/22');
+
+	userSleepQuality.innerHTML = `
+			<p>In the past day your sleep quality was ${todayQuality}</br></br>
+			Your sleep in the last week</br></br>
+			Saturday: ${weekQuality[5]}</br></br>
+			Friday: ${weekQuality[4]}</br></br>
+			Thurdsay: ${weekQuality[3]}</br></br>
+			Wednesday: ${weekQuality[2]}</br></br>
+			Tuesday: ${weekQuality[1]}</br></br>
+			Monday: ${weekQuality[0]}</br></br>
+	`
+}
+
 const updateOnload = () => {
 	chooseRandom();
 	updateWelcome(randomUser);
@@ -115,6 +152,8 @@ const updateOnload = () => {
 	updateMinAct(currentActivity);
 	updateSteps(currentActivity);
 	updateStairs(currentActivity);
+	updateSleepTime(currSleep);
+	updateSleepQuality(currSleep);
 }
 
 window.addEventListener('load', updateOnload);
