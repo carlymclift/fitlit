@@ -153,7 +153,6 @@ const updateSleepQuality = (currSleep) => {
 			Wednesday: ${weekQuality[2]}</br></br>
 			Tuesday: ${weekQuality[1]}</br></br>
 			Monday: ${weekQuality[0]}</br></br>
-			All users 
 			Best Sleepers this week:</br></br>
 			${bestSleep}
 	`
