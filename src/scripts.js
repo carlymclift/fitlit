@@ -115,9 +115,14 @@ const updateStairs = (currentAct) => {
 const updateSleepTime = (currSleep) => {
 	const todaySleep = currSleep.findUserSleepForDay('2019/09/22');
 	const weekSleep = currSleep.findUserSleepForWeek('2019/09/22');
+	const avSleep = currSleep.findUserAverageSleep(sleepData);
+	const mostSleep = currSleep.findSleepiest(sleepData, '2019/09/22');
+	const avSleepTime = currSleep.findAverageSleep();
 
 	userSleepTime.innerHTML = `
-			<p>In the past day you slept ${todaySleep} hours.</br></br>
+			<p>Your average hours slept a day is: ${avSleep}</br></br>
+			All users average sleep: ${avSleepTime} hours</br></br>
+			In the past day you slept ${todaySleep} hours.</br></br>
 			Your sleep in the last week:</br></br>
 			Saturday: ${weekSleep[5]}</br></br>
 			Friday: ${weekSleep[4]}</br></br>
@@ -125,22 +130,32 @@ const updateSleepTime = (currSleep) => {
 			Wednesday: ${weekSleep[2]}</br></br>
 			Tuesday: ${weekSleep[1]}</br></br>
 			Monday: ${weekSleep[0]}</br></br>
+			People who slept the most this week:</br></br>
+			${mostSleep}
 	`
 }
 
 const updateSleepQuality = (currSleep) => {
 	const todayQuality = currSleep.findUserSleepQualityForDay('2019/09/22');
 	const weekQuality = currSleep.findUserQualityForWeek('2019/09/22');
+	const avQuality = currSleep.findUserAverageQuality(sleepData);
+	const bestSleep = currSleep.findBestSleepers(sleepData, '2019/09/22');
+	const avSleepQuality = currSleep.findAverageQuality();
 
 	userSleepQuality.innerHTML = `
-			<p>In the past day your sleep quality was ${todayQuality}</br></br>
-			Your sleep in the last week</br></br>
+			<p>Your average quality of sleep a day is: ${avQuality}</br></br>
+			All users average sleep quality: ${avSleepQuality}</br></br>
+			In the past day your sleep quality was ${todayQuality}</br></br>
+			Your sleep quality in the last week:</br></br>
 			Saturday: ${weekQuality[5]}</br></br>
 			Friday: ${weekQuality[4]}</br></br>
 			Thurdsay: ${weekQuality[3]}</br></br>
 			Wednesday: ${weekQuality[2]}</br></br>
 			Tuesday: ${weekQuality[1]}</br></br>
 			Monday: ${weekQuality[0]}</br></br>
+			All users 
+			Best Sleepers this week:</br></br>
+			${bestSleep}
 	`
 }
 
@@ -152,8 +167,8 @@ const updateOnload = () => {
 	updateMinAct(currentActivity);
 	updateSteps(currentActivity);
 	updateStairs(currentActivity);
-	updateSleepTime(currSleep);
-	updateSleepQuality(currSleep);
+	updateSleepTime(currentSleep);
+	updateSleepQuality(currentSleep);
 }
 
 window.addEventListener('load', updateOnload);
