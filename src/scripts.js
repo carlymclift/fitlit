@@ -120,18 +120,18 @@ const updateSleepTime = (currSleep) => {
 	const avSleepTime = currSleep.findAverageSleep();
 
 	userSleepTime.innerHTML = `
-			<p>Your average hours slept a day is: ${avSleep}</br></br>
-			All users average sleep: ${avSleepTime} hours</br></br>
-			In the past day you slept ${todaySleep} hours.</br></br>
-			Your sleep in the last week:</br></br>
-			Saturday: ${weekSleep[5]}</br></br>
-			Friday: ${weekSleep[4]}</br></br>
-			Thurdsay: ${weekSleep[3]}</br></br>
-			Wednesday: ${weekSleep[2]}</br></br>
-			Tuesday: ${weekSleep[1]}</br></br>
-			Monday: ${weekSleep[0]}</br></br>
-			People who slept the most this week:</br></br>
-			${mostSleep}
+		<p>On average you sleep ${avSleep} hours a night</br></br>
+		The average sleep time for users is ${avSleepTime} hours a night</br></br>
+		Last night you slept ${todaySleep} hours.</br></br>
+		Your sleep in the past week:</br></br>
+		Saturday: ${weekSleep[5]}</br></br>
+		Friday: ${weekSleep[4]}</br></br>
+		Thurdsay: ${weekSleep[3]}</br></br>
+		Wednesday: ${weekSleep[2]}</br></br>
+		Tuesday: ${weekSleep[1]}</br></br>
+		Monday: ${weekSleep[0]}</br></br>
+		Sleepiest user this week is:</br></br>
+		${mostSleep}
 	`
 }
 
@@ -143,18 +143,18 @@ const updateSleepQuality = (currSleep) => {
 	const avSleepQuality = currSleep.findAverageQuality();
 
 	userSleepQuality.innerHTML = `
-			<p>Your average quality of sleep a day is: ${avQuality}</br></br>
-			All users average sleep quality: ${avSleepQuality}</br></br>
-			In the past day your sleep quality was ${todayQuality}</br></br>
-			Your sleep quality in the last week:</br></br>
-			Saturday: ${weekQuality[5]}</br></br>
-			Friday: ${weekQuality[4]}</br></br>
-			Thurdsay: ${weekQuality[3]}</br></br>
-			Wednesday: ${weekQuality[2]}</br></br>
-			Tuesday: ${weekQuality[1]}</br></br>
-			Monday: ${weekQuality[0]}</br></br>
-			Best Sleepers this week:</br></br>
-			${bestSleep}
+		<p>On average your quality of sleep from 1-5 is a ${avQuality}</br></br>
+		The average sleep quality for users is a ${avSleepQuality}</br></br>
+		Last night your sleep quality was a ${todayQuality}</br></br>
+		Your sleep quality in the past week:</br></br>
+		Saturday: ${weekQuality[5]}</br></br>
+		Friday: ${weekQuality[4]}</br></br>
+		Thurdsay: ${weekQuality[3]}</br></br>
+		Wednesday: ${weekQuality[2]}</br></br>
+		Tuesday: ${weekQuality[1]}</br></br>
+		Monday: ${weekQuality[0]}</br></br>
+		Users who slept the best this week:</br></br>
+		${bestSleep}
 	`
 }
 
