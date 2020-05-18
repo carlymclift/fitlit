@@ -24,7 +24,7 @@ describe('Sleep', () => {
 		userRepo = new UserRepository([user1, user2, user3]);
 
 		userSleep = new Sleep(user1, sleepData);
-		userSleep.getUserSleepData();
+		userSleep.correctSleepData();
 	})
 
 	it('should be a function', () => {
@@ -84,19 +84,23 @@ describe('Sleep', () => {
 	})
 
 	it('should be able to find the average sleep for each user by id, for a given week', () => {
-		let getSleep = userSleep.findUserAverageSleepForWeek('2019/09/02');
+		let getSleep = userSleep.findUserSleepForWeek('2019/09/02');
 
-		expect(getSleep).to.equal(7);
+		expect(getSleep).to.deep.equal([
+			 5.4, 7.9, 9.9, 4.3, 7.1, 4.4, 7.7 
+		]);
 	})
 
 	it('if no user date is given, findUserSleepForWeek method should throw an error', () => {
-		expect(() => { userSleep.findUserAverageSleepForWeek() }).to.throw(Error);
+		expect(() => { userSleep.findUserSleepForWeek() }).to.throw(Error);
 	})
 
 	it('should be able to find the average sleep quality for each user by id, for a given week', () => {
-		let getSleepQual = userSleep.findUserAverageQualityForWeek('2019/09/02');
+		let getSleepQual = userSleep.findUserQualityForWeek('2019/09/02');
 
-		expect(getSleepQual).to.equal(2);
+		expect(getSleepQual).to.deep.equal([
+			 1.4, 1.6, 1.6, 1.6, 1.9, 2.7, 4.4 
+		]);
 	})
 
 	it('should be able to find the average sleep for all users, all time', () => {

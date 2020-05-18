@@ -8,12 +8,15 @@ let userMiles = document.querySelector('.miles-walked');
 let userMinAct = document.querySelector('.min-active');
 let userSteps = document.querySelector('.steps');
 let userStairs = document.querySelector('.stairs');
+let userSleepTime = document.querySelector('.sleep-time');
+let userSleepQuality = document.querySelector('.sleep-quality');
 
 const userArray = userData.map((user) => new User(user));
 const userRepo = new UserRepository(userArray);
 let randomUser = {};
 let currentHydration = {};
 let currentActivity = {};
+let currentSleep = {};
 
 const chooseRandom = () => {
 	const randomNum = (Math.floor(Math.random() * userRepo.data.length));
@@ -23,6 +26,8 @@ const chooseRandom = () => {
 	currentHydration.correctHydroData();
 	currentActivity = new Activity(randomUser, activityData);
 	currentActivity.correctActData();
+	currentSleep = new Sleep(randomUser, sleepData);
+	currentSleep.correctSleepData();
 }
 
 const updateWelcome = (currentUser) => {
@@ -107,6 +112,52 @@ const updateStairs = (currentAct) => {
 		`;
 }
 
+const updateSleepTime = (currSleep) => {
+	const todaySleep = currSleep.findUserSleepForDay('2019/09/22');
+	const weekSleep = currSleep.findUserSleepForWeek('2019/09/22');
+	const avSleep = currSleep.findUserAverageSleep(sleepData);
+	const mostSleep = currSleep.findSleepiest(sleepData, '2019/09/22');
+	const avSleepTime = currSleep.findAverageSleep();
+
+	userSleepTime.innerHTML = `
+		<p>On average you sleep ${avSleep} hours a night</br></br>
+		The average sleep time for users is ${avSleepTime} hours a night</br></br>
+		Last night you slept ${todaySleep} hours.</br></br>
+		Your sleep in the past week:</br></br>
+		Saturday: ${weekSleep[5]}</br></br>
+		Friday: ${weekSleep[4]}</br></br>
+		Thurdsay: ${weekSleep[3]}</br></br>
+		Wednesday: ${weekSleep[2]}</br></br>
+		Tuesday: ${weekSleep[1]}</br></br>
+		Monday: ${weekSleep[0]}</br></br>
+		Sleepiest user this week is:</br></br>
+		${mostSleep}
+	`
+}
+
+const updateSleepQuality = (currSleep) => {
+	const todayQuality = currSleep.findUserSleepQualityForDay('2019/09/22');
+	const weekQuality = currSleep.findUserQualityForWeek('2019/09/22');
+	const avQuality = currSleep.findUserAverageQuality(sleepData);
+	const bestSleep = currSleep.findBestSleepers(sleepData, '2019/09/22');
+	const avSleepQuality = currSleep.findAverageQuality();
+
+	userSleepQuality.innerHTML = `
+		<p>On average your quality of sleep from 1-5 is a ${avQuality}</br></br>
+		The average sleep quality for users is a ${avSleepQuality}</br></br>
+		Last night your sleep quality was a ${todayQuality}</br></br>
+		Your sleep quality in the past week:</br></br>
+		Saturday: ${weekQuality[5]}</br></br>
+		Friday: ${weekQuality[4]}</br></br>
+		Thurdsay: ${weekQuality[3]}</br></br>
+		Wednesday: ${weekQuality[2]}</br></br>
+		Tuesday: ${weekQuality[1]}</br></br>
+		Monday: ${weekQuality[0]}</br></br>
+		Users who slept the best this week:</br></br>
+		${bestSleep}
+	`
+}
+
 const updateOnload = () => {
 	chooseRandom();
 	updateWelcome(randomUser);
@@ -115,6 +166,8 @@ const updateOnload = () => {
 	updateMinAct(currentActivity);
 	updateSteps(currentActivity);
 	updateStairs(currentActivity);
+	updateSleepTime(currentSleep);
+	updateSleepQuality(currentSleep);
 }
 
 window.addEventListener('load', updateOnload);
