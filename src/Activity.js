@@ -5,6 +5,7 @@ class Activity {
 		this.strideLength = userInfo.strideLength;
 		this.userActData = givenActData;
 	}
+	//TODO: change methods to output a new class property
 
 	correctActData() {
 		const currentActData = this.userActData.filter(user => {
@@ -12,7 +13,7 @@ class Activity {
 		})
 		this.userActData = currentActData;
 	}
-
+	
 	milesWalk(date) {
 		let foundDate = this.userActData.find(user => {
 			return user.date === date;

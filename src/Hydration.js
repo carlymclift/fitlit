@@ -3,6 +3,7 @@ class Hydration {
 		this.id = userInfo.id;
 		this.userHydroData = givenHydroData;
 	}
+	//TODO: change methods to output a new class property
 	
 	correctHydroData() {
 		const currentHydration = this.userHydroData.filter(user => {
