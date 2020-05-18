@@ -122,6 +122,14 @@ class Activity {
 
 		return Math.ceil(avStairs / filterDate.length);
 	}
+
+	consecutiveIncrease() {
+		//what days had increasing steps for 3 or more days?
+		this.userActData.reduce((accu, dataPt) => {
+
+			return accu;
+		}, [])
+	}
 }
 
 if (typeof module !== 'undefined') {

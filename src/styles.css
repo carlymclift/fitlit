@@ -25,9 +25,13 @@ h3,
 	text-align: center;
 }
 
-/* p {
-	padding: 14px;
-} */
+ul {
+	list-style: none;
+    max-height: 100px;
+    border: 1px solid black;
+    overflow: scroll;
+    text-align: left;
+}
 
 h3 {
 	font-weight: bold;
