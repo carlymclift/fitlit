@@ -24,22 +24,18 @@ class Activity {
 		return Math.round(milesWalked * 100) / 100;
 	}
 	
-	weekMilesWalked(date) { //REFACTOR
-		let currentIndex = this.userActData.findIndex(x => x.date === date);
+	weekMilesWalked(date) {
+		const firstIndex = this.userActData.findIndex(x => x.date === date);
 
-		let pastWeek = [];
-		for (let i = currentIndex - 6; i <= currentIndex; i++) {
-			pastWeek.push(this.userActData[i].numSteps);
-		} //TODO: replace w/ .slice & .map
-			//similar to: allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality)
+		const pastWeek = this.userActData.slice(firstIndex - 6, firstIndex + 1);
 
-		let miles = pastWeek.map(day => {
+		const pastWeekMiles = pastWeek.map(day => {
 			let stepsPerMile = 5280 / this.strideLength;
-			let milesWalked = day / stepsPerMile;
+			let milesWalked = day.numSteps / stepsPerMile;
 			return Math.round(milesWalked * 100) / 100;
 		})
 
-		return miles;
+		return pastWeekMiles;
 	}
 
 	minActive(date) {
@@ -51,13 +47,9 @@ class Activity {
 	}
 	
 	weekMinActive(date) {
-		let currentIndex = this.userActData.findIndex(x => x.date === date);
-		
-		let pastWeek = [];
-		for (let i = currentIndex - 6; i <= currentIndex; i++) {
-			pastWeek.push(this.userActData[i].minutesActive);
-		} //TODO: replace w/ .slice & .map
-			//similar to: allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality)
+		let firstIndex = this.userActData.findIndex(x => x.date === date);
+
+		const pastWeek = this.userActData.slice(firstIndex - 6, firstIndex + 1).map(x => x.minutesActive);
 		
 		return pastWeek;
 	}

@@ -28,15 +28,11 @@ class Hydration {
 	}
 
 	findOuncesForWeek(date) {
-		let currentIndex = this.userHydroData.findIndex(x => x.date === date);
-		
-		let pastWeek = [];
-		for (let i = currentIndex - 6; i <= currentIndex; i++) {
-				pastWeek.push(this.userHydroData[i].numOunces);
-			} //TODO: replace w/ .slice & .map
-				//similar to: allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality)
+		const firstIndex = this.userHydroData.findIndex(x => x.date === date);
+
+		const pastWeek = this.userHydroData.slice(firstIndex - 6, firstIndex + 1).map(x => x.numOunces);
 			
-			return pastWeek
+		return pastWeek
 		}
 	}
 

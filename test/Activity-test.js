@@ -79,20 +79,13 @@ describe('Activity', () => {
 		]);
 	})
 
-	it('if no date is given when invoked, weekMinActive method should throw an error', () => {
-		expect(() => { userAct.weekMinActive() }).to.throw(Error);
-	})
-
-	it('weekMilesWalked method should return a list of the steps taken daily for the past week', () => {
+	it('
+	 method should return a list of the steps taken daily for the past week', () => {
 		let getSteps = userAct.weekMilesWalked('2019/09/22');
 
 		expect(getSteps).to.deep.equal([
 			9.01, 3.99, 8.12, 9.84, 11.4, 4.65, 6.57
 		]);
-	})
-
-	it('if no date is given when invoked, weekMilesWalked method should throw an error', () => {
-		expect(() => { userAct.weekMilesWalked() }).to.throw(Error);
 	})
 
 	it('stepGoalResult method should tell the user they didn\'t meet their goals for this date', () => {
