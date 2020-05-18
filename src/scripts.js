@@ -26,8 +26,8 @@ const chooseRandom = () => {
 	currentHydration.correctHydroData();
 	currentActivity = new Activity(randomUser, activityData);
 	currentActivity.correctActData();
-	// currentSleep = new Sleep(randomUser, sleepData);
-	// currentSleep.correctSleepData();
+	currentSleep = new Sleep(randomUser, sleepData);
+	currentSleep.correctSleepData();
 }
 
 const updateWelcome = (currentUser) => {
