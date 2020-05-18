@@ -70,6 +70,14 @@ class Sleep {
         return acc;
       }, 0)
       return Math.round(average / this.userSleepData.length)
+    }
+    
+    findAverageQuality() {
+      const average = this.userSleepData.reduce((acc, user) => {
+        acc += user.sleepQuality
+        return acc;
+      }, 0)
+      return Math.round(average / this.userSleepData.length)
 		}
 		
 		findSleepiest(dataset, date) {
