@@ -43,8 +43,8 @@ const updateHydration = (currentHydro) => {
 	const avgOunces = currentHydro.findHydrationAverage(hydrationData);
 
 	h2o.innerHTML = `
-		<p>All user's average water intake is ${avgOunces} ounces per day.</br></br>
-		Your water intake today was ${ouncesForDay} ounces</br></br>
+		<p>Today's all FitLit user's water intake averaged at ${avgOunces} ounces.</br></br>
+		Today you drank ${ouncesForDay} ounces of water.</br></br>
 		Your past week's water intake:</br></br>
 		Saturday: ${ouncesForWeek[5]} ounces</br></br>
 		Friday: ${ouncesForWeek[4]} ounces</br></br>
@@ -78,7 +78,7 @@ const updateMinAct = (currentAct) => {
 
 	userMinAct.innerHTML = `
 		<p>Today you were active for ${todayMin} minutes.</br></br>
-		Today's average minutes active for all users was ${allUserTodayMin} minutes.</br></br>
+		Today's all FitLit user's were active for an average of ${allUserTodayMin} minutes.</br></br>
 		Your past week's activity:</br></br>
 		Saturday: ${weekMin[5]} minutes.</br></br>
 		Friday: ${weekMin[4]} minutes.</br></br>
@@ -95,10 +95,10 @@ const updateSteps = (currentAct) => {
 	const allUserTodaySteps = currentAct.allUserSteps(activityData, '2019/09/22');
 
 	userSteps.innerHTML = `
-		<p>You're daily step goal is ${randomUser.dailyStepGoal} steps.</br></br>
+		<p>Your daily step goal is ${randomUser.dailyStepGoal} steps.</br></br>
 		${todaySteps}</br></br>
-		Here's the past log for all the days you achieved your step goal: ${goalDays}</br></br>
-		Today's average steps for all users was ${allUserTodaySteps} steps.
+		Past log for all the days you achieved your step goal: ${goalDays}</br></br>
+		Today all FitLit user's averaged ${allUserTodaySteps} steps.
 		`;
 }
 
@@ -108,7 +108,7 @@ const updateStairs = (currentAct) => {
 
 	userStairs.innerHTML = `
 		<p>${stairRecord}</br></br>
-		Today's average flights of stairs climbed for all users was ${allUserStairs} flights.
+		Today all FitLit user's averaged ${allUserStairs} flights climbed.
 		`;
 }
 
@@ -120,18 +120,17 @@ const updateSleepTime = (currSleep) => {
 	const avSleepTime = currSleep.findAverageSleep();
 
 	userSleepTime.innerHTML = `
-		<p>On average you sleep ${avSleep} hours a night</br></br>
-		The average sleep time for users is ${avSleepTime} hours a night</br></br>
-		Last night you slept ${todaySleep} hours.</br></br>
-		Your sleep in the past week:</br></br>
-		Saturday: ${weekSleep[5]}</br></br>
-		Friday: ${weekSleep[4]}</br></br>
-		Thurdsay: ${weekSleep[3]}</br></br>
-		Wednesday: ${weekSleep[2]}</br></br>
-		Tuesday: ${weekSleep[1]}</br></br>
-		Monday: ${weekSleep[0]}</br></br>
-		Sleepiest user this week is:</br></br>
-		${mostSleep}
+		<p>On average you sleep ${avSleep} hours per night</br></br>
+		All FitLit user's average ${avSleepTime} hours per night</br></br>
+		Last night you slept for ${todaySleep} hours.</br></br>
+		Your past week sleeplog:</br></br>
+		Saturday: ${weekSleep[5]} hours</br></br>
+		Friday: ${weekSleep[4]} hours</br></br>
+		Thurdsay: ${weekSleep[3]} hours</br></br>
+		Wednesday: ${weekSleep[2]} hours</br></br>
+		Tuesday: ${weekSleep[1]} hours</br></br>
+		Monday: ${weekSleep[0]} hours</br></br>
+		FitLit's sleepiest user last nigh was: ${mostSleep}.
 	`
 }
 
@@ -143,17 +142,17 @@ const updateSleepQuality = (currSleep) => {
 	const avSleepQuality = currSleep.findAverageQuality();
 
 	userSleepQuality.innerHTML = `
-		<p>On average your quality of sleep from 1-5 is a ${avQuality}</br></br>
-		The average sleep quality for users is a ${avSleepQuality}</br></br>
-		Last night your sleep quality was a ${todayQuality}</br></br>
-		Your sleep quality in the past week:</br></br>
+		<p>On a 1-5 scale, on average your sleep quality is at a ${avQuality}.</br></br>
+		Amongst all FitLit users, the average sleep quality is ${avSleepQuality}.</br></br>
+		Last night your sleep quality was ${todayQuality}.</br></br>
+		Your past week sleep quality:</br></br>
 		Saturday: ${weekQuality[5]}</br></br>
 		Friday: ${weekQuality[4]}</br></br>
 		Thurdsay: ${weekQuality[3]}</br></br>
 		Wednesday: ${weekQuality[2]}</br></br>
 		Tuesday: ${weekQuality[1]}</br></br>
 		Monday: ${weekQuality[0]}</br></br>
-		Users who slept the best this week:</br></br>
+		FitLit users who scored above a 3 in sleep quality this last week:</br></br>
 		${bestSleep}
 	`
 }
