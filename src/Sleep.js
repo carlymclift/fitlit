@@ -43,26 +43,18 @@ class Sleep {
     }
   
     findUserSleepForWeek(date) {
-      let currentIndex = this.userSleepData.findIndex(x => x.date === date);
+      const firstIndex = this.userSleepData.findIndex(x => x.date === date);
   
-      const pastWeek = [];
-      for (let i = currentIndex - 6; i <= currentIndex; i++) {
-        pastWeek.push(this.userSleepData[i].hoursSlept);
-      } //TODO: replace w/ .slice & .map
-				//similar to: allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality)
+      const pastWeek = this.userSleepData.slice(firstIndex - 6, firstIndex + 1).map(x => x.minutesActive);
   
       return pastWeek;
     }
   
     findUserQualityForWeek(date) {
-      const currentIndex = this.userSleepData.findIndex(x => x.date === date);
+      const firstIndex = this.userSleepData.findIndex(x => x.date === date);
   
-      const pastWeek = [];
-      for (let i = currentIndex - 6; i <= currentIndex; i++) {
-        pastWeek.push(this.userSleepData[i].sleepQuality);
-      } //TODO: replace w/ .slice & .map
-				//similar to: allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality)
-  
+      const pastWeek = this.userSleepData.slice(firstIndex - 6, firstIndex + 1).map(x => x.minuteActive)
+
       return pastWeek;
     }
   
