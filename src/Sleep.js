@@ -3,7 +3,7 @@ class Sleep {
       this.id = userInfo.id;
       this.userSleepData = givenSleepData;
     }
-    getUserSleepData() {
+    correctSleepData() {
       const currentSleepData = this.userSleepData.filter(user => {
         return user.userID === this.id;
       })
@@ -40,7 +40,7 @@ class Sleep {
       return sleepData.sleepQuality;
     }
   
-    findUserAverageSleepForWeek(date) {
+    findUserSleepForWeek(date) {
       let currentIndex = this.userSleepData.findIndex(x => x.date === date);
   
       const pastWeek = [];
@@ -49,10 +49,10 @@ class Sleep {
       } //TODO: replace w/ .slice & .map
 				//similar to: allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality)
   
-      return Math.round((pastWeek.reduce((a, b) => a + b)) / 7);
+      return pastWeek;
     }
   
-    findUserAverageQualityForWeek(date) {
+    findUserQualityForWeek(date) {
       const currentIndex = this.userSleepData.findIndex(x => x.date === date);
   
       const pastWeek = [];
@@ -61,12 +61,20 @@ class Sleep {
       } //TODO: replace w/ .slice & .map
 				//similar to: allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality)
   
-      return Math.round((pastWeek.reduce((a, b) => a + b)) / 7);
+      return pastWeek;
     }
   
     findAverageSleep() {
       const average = this.userSleepData.reduce((acc, user) => {
         acc += user.hoursSlept
+        return acc;
+      }, 0)
+      return Math.round(average / this.userSleepData.length)
+    }
+    
+    findAverageQuality() {
+      const average = this.userSleepData.reduce((acc, user) => {
+        acc += user.sleepQuality
         return acc;
       }, 0)
       return Math.round(average / this.userSleepData.length)
