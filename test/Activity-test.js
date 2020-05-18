@@ -79,8 +79,7 @@ describe('Activity', () => {
 		]);
 	})
 
-	it('
-	 method should return a list of the steps taken daily for the past week', () => {
+	it('method should return a list of the steps taken daily for the past week', () => {
 		let getSteps = userAct.weekMilesWalked('2019/09/22');
 
 		expect(getSteps).to.deep.equal([

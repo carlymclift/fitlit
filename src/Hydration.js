@@ -13,7 +13,7 @@ class Hydration {
 	}
 
 	findHydrationAverage(dataset) {
-		let avHydration = dataset.reduce((accu, user) => {
+		const avHydration = dataset.reduce((accu, user) => {
 			accu += user.numOunces;
 			return accu;
 		}, 0)
@@ -21,7 +21,7 @@ class Hydration {
 	}
 
 	findOuncesForDay(date) {
-		let foundData = this.userHydroData.find(user => {
+		const foundData = this.userHydroData.find(user => {
 			return user.date === date;
 		})
 		return foundData.numOunces;
