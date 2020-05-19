@@ -1,10 +1,9 @@
-// const userData = require('../data/users');
-
 class Sleep {
     constructor(userInfo, givenSleepData) {
       this.id = userInfo.id;
       this.userSleepData = givenSleepData;
-    }
+		}
+		
     correctSleepData() {
       const currentSleepData = this.userSleepData.filter(user => {
         return user.userID === this.id;
