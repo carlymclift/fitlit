@@ -85,7 +85,7 @@ class Sleep {
 				return user.id === sortedSleepies[0].userID;
 			}).name;
 
-			return `User ${userName} slept the most this day, they slept ${sortedSleepies[0].hoursSlept} hours -- WOW!`
+			return `${userName}, who slept ${sortedSleepies[0].hoursSlept} hours -- WOW!`
 		}
 		
 		findBestSleepers(dataset, date, givenClass) {
