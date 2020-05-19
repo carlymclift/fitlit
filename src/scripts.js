@@ -130,7 +130,7 @@ const updateSleepTime = (currSleep) => {
 		Wednesday: ${weekSleep[2]} hours</br></br>
 		Tuesday: ${weekSleep[1]} hours</br></br>
 		Monday: ${weekSleep[0]} hours</br></br>
-		FitLit's sleepiest user last nigh was: ${mostSleep}.
+		FitLit's sleepiest user last night was: ${mostSleep}.
 	`
 }
 
