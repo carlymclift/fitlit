@@ -6,7 +6,6 @@ class Activity {
 		this.userActData = givenActData;
 		this.todaySteps = 0;
 	}
-	//TODO: change methods to output a new class property
 
 	correctActData() {
 		const currentActData = this.userActData.filter(user => {

@@ -120,9 +120,9 @@ class Sleep {
 					let userName;
 					userName = givenClass.data.find(currentUser => {
 						return currentUser.id === Number(user);
-					});
+					}).name;
 
-					accu.push(userName.name);
+					accu.push(userName);
 				}
 
 				return accu
