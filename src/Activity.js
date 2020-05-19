@@ -136,7 +136,7 @@ class Activity {
 		this.weekAv = weekAv;
 	}
 
-	friendsSteps(date, dataset) {
+	friendsSteps(date, dataset, givenClass) {
 		const foundSteps = this.friends.map(friend => {
 			const usersData = dataset.filter(dataPt => dataPt.userID === friend);
 			const firstIndex = usersData.findIndex(x => x.date === date);
@@ -146,26 +146,22 @@ class Activity {
 				accu += day;
 				return accu;
 			}, 0);
-			return { user: friend, weekTotal: weekAv }
+
+			const updateName = givenClass.data.find(dataPt => {
+				return dataPt.id === friend;
+			}).name;
+
+			return { user: updateName, weekTotal: weekAv }
 		})
 		
 		this.friendsWeekAv = foundSteps;
-		console.log('FRIEND WK :', this.friendsWeekAv);
 	}
 
 	challengeWinner() {
-		this.friendsWeekAv.push(this.weekAv);
-		const sortAv = this.friendsWeekAv.sort((a, b) => b - a);
+		this.friendsWeekAv.push({ user: this.id, weekTotal: this.weekAv });
+		const sortAv = this.friendsWeekAv.sort((a, b) => b.weekTotal - a.weekTotal);
 		return sortAv[0];
 	}
-
-	// FINDING WEEK DATA ~~~
-	// const firstIndex = this.userActData.findIndex(x => x.date === date);
-
-	// const pastWeek = this.userActData.slice(firstIndex - 6, firstIndex + 1).map(x => x.minutesActive);
-	
-	// return pastWeek;
-
 }
 
 if (typeof module !== 'undefined') {

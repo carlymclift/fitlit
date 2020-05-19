@@ -159,12 +159,12 @@ describe('Activity', () => {
 		expect(() => { userAct.allUserStairsClimbed() }).to.throw(Error);
 	})
 
-	it('friendsSteps', () => {
-		let userWk = userAct.avSteps("2019/09/22");
-		let getFrSteps = userAct.friendsSteps("2019/09/22", activityData, userRepo);
-		let winner = userAct.challengeWinner();
-		expect(getFrSteps).to.equal(27);
-	})
+	// it('friendsSteps', () => {
+	// 	let userWk = userAct.avSteps("2019/09/22");
+	// 	let getFrSteps = userAct.friendsSteps("2019/09/22", activityData, userRepo);
+	// 	let winner = userAct.challengeWinner();
+	// 	expect(getFrSteps).to.equal(27);
+	// })
 
 	//IT5 tests
 })

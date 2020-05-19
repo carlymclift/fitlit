@@ -25,7 +25,6 @@ const chooseRandom = () => {
 	const randomNum = (Math.floor(Math.random() * userRepo.data.length));
 	
 	randomUser = userRepo.data[randomNum];
-	// randomUser.updateFriendName(userRepo);
 	currentHydration = new Hydration(randomUser, hydrationData);
 	currentHydration.correctHydroData();
 	currentActivity = new Activity(randomUser, activityData);
@@ -35,6 +34,7 @@ const chooseRandom = () => {
 }
 
 const updateWelcome = (currentUser) => {
+	randomUser.updateFriendName(userRepo);
 	welcomeTitle.innerText = `Hello ${currentUser.findName()}!`;
 	userCardName.innerText = `Name: ${currentUser.name}`;
 	userAddress.innerText = `Address: ${currentUser.address}`;
@@ -103,9 +103,9 @@ const updateSteps = (currentAct) => {
 	userSteps.innerHTML = `
 		<p>Your daily step goal is ${randomUser.dailyStepGoal} steps.</br></br>
 		${todaySteps}</br></br>
-		Last week you averaged ${currentAct.weekAv} steps.</br></br>
+		You took ${currentAct.weekAv} steps this week.</br></br>
 		Past log for all the days you achieved your step goal:</br></br>
-		<ul>${goalDaysToList(goalDays)}</ul>
+		<ul class="goal-log">${goalDaysToList(goalDays)}</ul>
 		Today all FitLit user's averaged ${allUserTodaySteps} steps.
 		`;
 }
@@ -171,15 +171,18 @@ const updateSleepQuality = (currSleep) => {
 const challenge = (currentAct) => {
 	updateSteps(currentAct);
 	currentAct.avSteps('2019/09/22');
-	currentAct.friendsSteps('2019/09/22', activityData);
-	// console.log("FRIEND DATA :", friendData);
+	currentAct.friendsSteps('2019/09/22', activityData, userRepo);
+
 	for (let i =0; i< currentAct.friendsWeekAv.length; i++) {
-		friendSteps.insertAdjacentHTML('afterend', `<li>${currentAct.friendsWeekAv[i].user} took ${currentAct.friendsWeekAv[i].weekTotal} steps this week.</li>`);
+		friendSteps.insertAdjacentHTML('beforeend', `<li>${currentAct.friendsWeekAv[i].user} took ${currentAct.friendsWeekAv[i].weekTotal} steps this week.</li></br>`);
 	}
 
-
 	const weekWinner = currentAct.challengeWinner();
-	stepWinner.innerHTML = `${weekWinner.user} wins the challenge this week! They took ${weekWinner.weekTotal} steps!`;
+	if (weekWinner.user === randomUser.id) {
+		stepWinner.innerHTML = `Congrats, you win this week! You took ${weekWinner.weekTotal} steps!</br></br>`;
+	} else {
+		stepWinner.innerHTML = `${weekWinner.user} wins this week! They took ${weekWinner.weekTotal} steps!</br></br>`;
+	}
 }
 
 const updateOnload = () => {
