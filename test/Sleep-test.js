@@ -93,10 +93,6 @@ describe('Sleep', () => {
 		]);
 	})
 
-	it('if no user date is given, findUserSleepForWeek method should throw an error', () => {
-		expect(() => { userSleep.findUserSleepForWeek() }).to.throw(Error);
-	})
-
 	it('should be able to find the average sleep quality for each user by id, for a given week', () => {
 		let getSleepQual = userSleep.findUserQualityForWeek('2019/09/02');
 

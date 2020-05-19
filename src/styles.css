@@ -55,23 +55,31 @@ h3 {
 
 .user-card,
 .miles-active-card {
-	background-color: #65524D;
+	background-color: rgb(138, 114, 108);
 }
 
 .water-card,
 .stairs-card {
-	background-color: #817E9F;
+	background-color: rgb(141, 136, 194);
+}
+
+.sleep-quality-card {
+	background-color: rgb(200, 165, 211);
+}
+
+.sleep-time-card {
+	background-color: rgb(126, 190, 187);
 }
 
 .sleep-quality-card,
 .it5-card {
-	background-color: #7FC29B;
+	background-color: rgb(115, 183, 223);
 }
 
 .min-active-card {
-	background-color: #D7F171;
+	background-color: rgb(191, 224, 172);
 }
 
 .step-goal-card {
-	background-color: #B5EF8A;
+	background-color: rgb(241, 214, 138);
 }
