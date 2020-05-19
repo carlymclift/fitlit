@@ -62,12 +62,12 @@ const updateMiles = (currentAct) => {
 	userMiles.innerHTML = `
 		<p>Today you walked ${todayMiles} miles.</br></br>
 		In the past week you've walked:</br></br>
-		Saturday: ${weekMiles[5]} miles.</br></br>
-		Friday: ${weekMiles[4]} miles.</br></br>
-		Thursday: ${weekMiles[3]} miles.</br></br>
-		Wednesday: ${weekMiles[2]} miles.</br></br>
-		Tuesday: ${weekMiles[1]} miles.</br></br>
-		Monday: ${weekMiles[0]} miles.
+		Saturday: ${weekMiles[5]} miles</br></br>
+		Friday: ${weekMiles[4]} miles</br></br>
+		Thursday: ${weekMiles[3]} miles</br></br>
+		Wednesday: ${weekMiles[2]} miles</br></br>
+		Tuesday: ${weekMiles[1]} miles</br></br>
+		Monday: ${weekMiles[0]} miles
 		`;
 }
 
@@ -80,12 +80,12 @@ const updateMinAct = (currentAct) => {
 		<p>Today you were active for ${todayMin} minutes.</br></br>
 		Today's all FitLit user's were active for an average of ${allUserTodayMin} minutes.</br></br>
 		Your past week's activity:</br></br>
-		Saturday: ${weekMin[5]} minutes.</br></br>
-		Friday: ${weekMin[4]} minutes.</br></br>
-		Thursday: ${weekMin[3]} minutes.</br></br>
-		Wednesday: ${weekMin[2]} minutes.</br></br>
-		Tuesday: ${weekMin[1]} minutes.</br></br>
-		Monday: ${weekMin[0]} minutes.</br></br>
+		Saturday: ${weekMin[5]} minutes</br></br>
+		Friday: ${weekMin[4]} minutes</br></br>
+		Thursday: ${weekMin[3]} minutes</br></br>
+		Wednesday: ${weekMin[2]} minutes</br></br>
+		Tuesday: ${weekMin[1]} minutes</br></br>
+		Monday: ${weekMin[0]} minutes
 		`;
 }
 
@@ -97,10 +97,14 @@ const updateSteps = (currentAct) => {
 	userSteps.innerHTML = `
 		<p>Your daily step goal is ${randomUser.dailyStepGoal} steps.</br></br>
 		${todaySteps}</br></br>
-		Past log for all the days you achieved your step goal: ${goalDays}</br></br>
+		Past log for all the days you achieved your step goal:</br></br>
+		<ul>${goalDaysToList(goalDays)}</ul>
 		Today all FitLit user's averaged ${allUserTodaySteps} steps.
 		`;
 }
+
+const goalDaysToList = (goalDays) => goalDays
+	.map(day => `<li>${day}</li>`).join('');
 
 const updateStairs = (currentAct) => {
 	const stairRecord = currentAct.stairRecord();
@@ -116,7 +120,7 @@ const updateSleepTime = (currSleep) => {
 	const todaySleep = currSleep.findUserSleepForDay('2019/09/22');
 	const weekSleep = currSleep.findUserSleepForWeek('2019/09/22');
 	const avSleep = currSleep.findUserAverageSleep(sleepData);
-	const mostSleep = currSleep.findSleepiest(sleepData, '2019/09/22', userRepo);
+	const mostSleep = currSleep.findMostSleepUser(sleepData, '2019/09/22', userRepo);
 	const avSleepTime = currSleep.findAverageSleep();
 
 	userSleepTime.innerHTML = `
@@ -144,7 +148,7 @@ const updateSleepQuality = (currSleep) => {
 	userSleepQuality.innerHTML = `
 		<p>On a 1-5 scale, on average your sleep quality is at a ${avQuality}.</br></br>
 		Amongst all FitLit users, the average sleep quality is ${avSleepQuality}.</br></br>
-		Last night your sleep quality was ${todayQuality}.</br></br>
+		Last night your sleep quality was ${todayQuality}.
 		Your past week sleep quality:</br></br>
 		Saturday: ${weekQuality[5]}</br></br>
 		Friday: ${weekQuality[4]}</br></br>

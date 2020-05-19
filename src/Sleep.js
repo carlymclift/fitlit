@@ -1,10 +1,9 @@
-// const userData = require('../data/users');
-
 class Sleep {
     constructor(userInfo, givenSleepData) {
       this.id = userInfo.id;
       this.userSleepData = givenSleepData;
-    }
+		}
+		
     correctSleepData() {
       const currentSleepData = this.userSleepData.filter(user => {
         return user.userID === this.id;
@@ -74,7 +73,7 @@ class Sleep {
       return Math.round(average / this.userSleepData.length)
 		}
 		
-		findSleepiest(dataset, date, givenClass) {
+		findMostSleepUser(dataset, date, givenClass) {
 			const filterDate = dataset.filter(dataPt => {
 				return dataPt.date === date;
 			})
@@ -85,7 +84,7 @@ class Sleep {
 				return user.id === sortedSleepies[0].userID;
 			}).name;
 
-			return `${userName}, who slept ${sortedSleepies[0].hoursSlept} hours -- WOW!`
+			return `${userName} slept more than any other user last night, ${sortedSleepies[0].hoursSlept} hours -- WOW!`
 		}
 		
 		findBestSleepers(dataset, date, givenClass) {
@@ -113,9 +112,9 @@ class Sleep {
 					let userName;
 					userName = givenClass.data.find(currentUser => {
 						return currentUser.id === Number(user);
-					});
+					}).name;
 
-					accu.push(userName.name);
+					accu.push(userName);
 				}
 
 				return accu
