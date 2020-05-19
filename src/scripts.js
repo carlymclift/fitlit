@@ -1,15 +1,18 @@
 /* eslint-disable no-undef */
-let welcomeTitle = document.querySelector('.welcome');
-let userCardName = document.querySelector('.name');
-let userAddress = document.querySelector('.address');
-let userEmail = document.querySelector('.email');
-let h2o = document.querySelector('.h2o');
-let userMiles = document.querySelector('.miles-walked');
-let userMinAct = document.querySelector('.min-active');
-let userSteps = document.querySelector('.steps');
-let userStairs = document.querySelector('.stairs');
-let userSleepTime = document.querySelector('.sleep-time');
-let userSleepQuality = document.querySelector('.sleep-quality');
+const welcomeTitle = document.querySelector('.welcome');
+const userCardName = document.querySelector('.name');
+const userAddress = document.querySelector('.address');
+const userEmail = document.querySelector('.email');
+const userFriends = document.querySelector('.friends');
+const h2o = document.querySelector('.h2o');
+const userMiles = document.querySelector('.miles-walked');
+const userMinAct = document.querySelector('.min-active');
+const userSteps = document.querySelector('.steps');
+const userStairs = document.querySelector('.stairs');
+const userSleepTime = document.querySelector('.sleep-time');
+const userSleepQuality = document.querySelector('.sleep-quality');
+const friendSteps = document.querySelector('.friend-data');
+const stepWinner = document.querySelector('.winner');
 
 const userArray = userData.map((user) => new User(user));
 const userRepo = new UserRepository(userArray);
@@ -22,6 +25,7 @@ const chooseRandom = () => {
 	const randomNum = (Math.floor(Math.random() * userRepo.data.length));
 	
 	randomUser = userRepo.data[randomNum];
+	// randomUser.updateFriendName(userRepo);
 	currentHydration = new Hydration(randomUser, hydrationData);
 	currentHydration.correctHydroData();
 	currentActivity = new Activity(randomUser, activityData);
@@ -35,6 +39,7 @@ const updateWelcome = (currentUser) => {
 	userCardName.innerText = `Name: ${currentUser.name}`;
 	userAddress.innerText = `Address: ${currentUser.address}`;
 	userEmail.innerText = `Email: ${currentUser.email}`;
+	userFriends.innerText = `Friends:${currentUser.friends}`
 }
 
 const updateHydration = (currentHydro) => {
@@ -91,12 +96,14 @@ const updateMinAct = (currentAct) => {
 
 const updateSteps = (currentAct) => {
 	const todaySteps = currentAct.stepGoalResult('2019/09/22');
+	const avSteps = currentAct.avSteps('2019/09/22');
 	const goalDays = currentAct.daysGoalAchieved();
 	const allUserTodaySteps = currentAct.allUserSteps(activityData, '2019/09/22');
 
 	userSteps.innerHTML = `
 		<p>Your daily step goal is ${randomUser.dailyStepGoal} steps.</br></br>
 		${todaySteps}</br></br>
+		Last week you averaged ${currentAct.weekAv} steps.</br></br>
 		Past log for all the days you achieved your step goal:</br></br>
 		<ul>${goalDaysToList(goalDays)}</ul>
 		Today all FitLit user's averaged ${allUserTodaySteps} steps.
@@ -161,6 +168,20 @@ const updateSleepQuality = (currSleep) => {
 	`
 }
 
+const challenge = (currentAct) => {
+	updateSteps(currentAct);
+	currentAct.avSteps('2019/09/22');
+	currentAct.friendsSteps('2019/09/22', activityData);
+	// console.log("FRIEND DATA :", friendData);
+	for (let i =0; i< currentAct.friendsWeekAv.length; i++) {
+		friendSteps.insertAdjacentHTML('afterend', `<li>${currentAct.friendsWeekAv[i].user} took ${currentAct.friendsWeekAv[i].weekTotal} steps this week.</li>`);
+	}
+
+
+	const weekWinner = currentAct.challengeWinner();
+	stepWinner.innerHTML = `${weekWinner.user} wins the challenge this week! They took ${weekWinner.weekTotal} steps!`;
+}
+
 const updateOnload = () => {
 	chooseRandom();
 	updateWelcome(randomUser);
@@ -171,6 +192,7 @@ const updateOnload = () => {
 	updateStairs(currentActivity);
 	updateSleepTime(currentSleep);
 	updateSleepQuality(currentSleep);
+	challenge(currentActivity);
 }
 
 window.addEventListener('load', updateOnload);
