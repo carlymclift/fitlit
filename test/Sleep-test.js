@@ -93,6 +93,8 @@ describe('Sleep', () => {
 		]);
 	})
 
+	//TODO: add sad test for .findUserSleepForWeek method ^^
+
 	it('should be able to find the average sleep quality for each user by id, for a given week', () => {
 		let getSleepQual = userSleep.findUserQualityForWeek('2019/09/02');
 
@@ -101,17 +103,26 @@ describe('Sleep', () => {
 		]);
 	})
 
+	//TODO: add sad test for .findUserQualityForWeek method ^^
+
 	it('should be able to find the average sleep for all users, all time', () => {
 		let getSleepAv = userSleep.findAverageSleep();
 
 		expect(getSleepAv).to.equal(8);
 	})
 
-	it('should be able to find the sleepiest user for a given date', () => {
-		let findSleepy = userSleep.findSleepiest(sleepData, '2019/07/21', userRepo);
+	//TODO: add sad test for .findAverageSleep method ^^
 
-		expect(findSleepy).to.equal('User Kristin Cruickshank slept the most this day, they slept 10.6 hours -- WOW!');
+	//TODO: add happy + sad test for .findAverageQuality method
+
+	it('should be able to find the user who slept the most for a given date', () => {
+		let findSleepy = userSleep.findMostSleepUser(sleepData, '2019/07/21', userRepo);
+
+		expect(findSleepy).to.equal('Kristin Cruickshank slept more than any other user last night, 10.6 hours -- WOW!');
 	})
+
+	//TODO: add sad test for . method ^^
+
 
 	// it('should return the users with the best sleep week, quality over 3', () => {
 	// 	let findBest = userSleep.findBestSleepers(sleepData, '2019/07/21', userRepo);
@@ -123,4 +134,7 @@ describe('Sleep', () => {
 	// 	 43, 44, 47
 	//  ]);
 	// })
+
+	//TODO: add happy + sad test for .findBestSleepers method
+
 })

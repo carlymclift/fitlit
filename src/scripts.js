@@ -120,7 +120,7 @@ const updateSleepTime = (currSleep) => {
 	const todaySleep = currSleep.findUserSleepForDay('2019/09/22');
 	const weekSleep = currSleep.findUserSleepForWeek('2019/09/22');
 	const avSleep = currSleep.findUserAverageSleep(sleepData);
-	const mostSleep = currSleep.findSleepiest(sleepData, '2019/09/22', userRepo);
+	const mostSleep = currSleep.findMostSleepUser(sleepData, '2019/09/22', userRepo);
 	const avSleepTime = currSleep.findAverageSleep();
 
 	userSleepTime.innerHTML = `
