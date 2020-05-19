@@ -3,8 +3,11 @@ class Activity {
 		this.id = userInfo.id;
 		this.dailyStepGoal = userInfo.dailyStepGoal;
 		this.strideLength = userInfo.strideLength;
+		this.friends = userInfo.friends;
 		this.userActData = givenActData;
 		this.todaySteps = 0;
+		this.weekAv = 0;
+		this.friendsWeekAv = [];
 	}
 
 	correctActData() {
@@ -120,6 +123,44 @@ class Activity {
 		}, 0)
 
 		return Math.ceil(avStairs / filterDate.length);
+	}
+
+	avSteps(date) {
+		const firstIndex = this.userActData.findIndex(x => x.date === date);
+		const pastWeek = this.userActData.slice(firstIndex - 6, firstIndex + 1).map(x => x.numSteps);
+		
+		const weekAv = pastWeek.reduce((accu, day) => {
+			accu += day;
+			return accu;
+		}, 0);
+		this.weekAv = weekAv;
+	}
+
+	friendsSteps(date, dataset, givenClass) {
+		const foundSteps = this.friends.map(friend => {
+			const usersData = dataset.filter(dataPt => dataPt.userID === friend);
+			const firstIndex = usersData.findIndex(x => x.date === date);
+			const pastWeek = usersData.slice(firstIndex - 6, firstIndex + 1).map(x => x.numSteps);
+			
+			const weekAv = pastWeek.reduce((accu, day) => {
+				accu += day;
+				return accu;
+			}, 0);
+
+			const updateName = givenClass.data.find(dataPt => {
+				return dataPt.id === friend;
+			}).name;
+
+			return { user: updateName, weekTotal: weekAv }
+		})
+		
+		this.friendsWeekAv = foundSteps;
+	}
+
+	challengeWinner() {
+		this.friendsWeekAv.push({ user: this.id, weekTotal: this.weekAv });
+		const sortAv = this.friendsWeekAv.sort((a, b) => b.weekTotal - a.weekTotal);
+		return sortAv[0];
 	}
 }
 

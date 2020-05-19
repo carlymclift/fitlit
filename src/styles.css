@@ -25,12 +25,17 @@ h3,
 	text-align: center;
 }
 
-ul {
+.goal-log {
 	list-style: none;
-    max-height: 150px;
-    border: 1px solid grey;
-    overflow: scroll;
-    text-align: left;
+	max-height: 150px;
+	border: 1px solid grey;
+	overflow: scroll;
+	text-align: left;
+}
+
+.friend-data {
+	list-style: none;
+	text-align: left;
 }
 
 h3 {
@@ -72,7 +77,7 @@ h3 {
 }
 
 .sleep-quality-card,
-.it5-card {
+.friend-steps-card {
 	background-color: rgb(115, 183, 223);
 }
 

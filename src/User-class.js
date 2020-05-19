@@ -11,9 +11,18 @@ class User {
 }}
 
 	findName() {
-		let splitName = this.name.split(' ');
+		const splitName = this.name.split(' ');
 
 		return splitName[0];
+	}
+
+	updateFriendName(givenClass) {
+		this.friends = this.friends.map(friend => {
+			const foundName = givenClass.data.find(dataPt => {
+				return dataPt.id === friend;
+			}).name;
+			return foundName;
+		})
 	}
 }
 

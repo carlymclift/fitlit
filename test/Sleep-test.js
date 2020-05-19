@@ -7,7 +7,6 @@ const sleepData = require('../data/sleep');
 const UserRepository = require('../src/UserRepository');
 const Sleep = require('../src/Sleep');
 
-console.log(sleepData)
 describe('Sleep', () => {
 
 	let user1;
