@@ -165,11 +165,11 @@ const updateStairs = (currentAct) => {
 }
 
 const updateSteps = (currentAct) => {
+	currentAct.weekSteps('2019/09/22');
 	const todaySteps = currentAct.stepGoalResult('2019/09/22');
 	const avGoal = userRepo.fetchAverageStepGoal();
 	const goalDays = currentAct.daysGoalAchieved();
 	const allUserTodaySteps = currentAct.allUserSteps(activityData, '2019/09/22');
-	currentAct.weekSteps('2019/09/22');
 
 	userSteps.innerHTML = `
 		<p>You took ${currentAct.wkSteps} steps this week.</br></br>

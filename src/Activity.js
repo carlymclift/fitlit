@@ -80,7 +80,7 @@ class Activity {
 		if (this.todaySteps >= this.dailyStepGoal) {
 			return `Step goal reached today, with ${foundDate.numSteps} steps taken!`;
 		} else { return `You did not meet your step goal today, with ${foundDate.numSteps} steps.`}
-	}
+	} //TOD: change return to an obj
 
 	daysGoalAchieved() {
 		const goalDays = this.userActData.filter(user => {
@@ -110,7 +110,7 @@ class Activity {
 	stairRecord() {
 		const sortStair = this.userActData.sort((a, b) => b.flightsOfStairs - a.flightsOfStairs);
 		return `Your stair climb record was ${sortStair[0].flightsOfStairs} flights on ${sortStair[0].date}!`;
-	}
+	} //TODO: change return to an obj
 
 	allUserStairsClimbed(dataset, date) {
 		const filterDate = dataset.filter(dataPt => {
@@ -125,21 +125,21 @@ class Activity {
 		return Math.ceil(avStairs / filterDate.length);
 	}
 
-	//TODO: Stairs climbed in past week & today
+	//TODO: Stairs climbed in past week & today method
 
 	weekSteps(date) {
 		const firstIndex = this.userActData.findIndex(x => x.date === date);
 		const pastWeek = this.userActData.slice(firstIndex - 6, firstIndex + 1).map(x => x.numSteps);
 		
-		const wkSteps = pastWeek.reduce((accu, day) => {
+		const currentWkSteps = pastWeek.reduce((accu, day) => {
 			accu += day;
 			return accu;
 		}, 0);
-		this.wkSteps = wkSteps;
+		this.wkSteps = currentWkSteps;
 	}
 
 	friendsSteps(date, dataset, givenClass) {
-		const foundSteps = this.friends.map(friend => {
+		this.friendsWkSteps = this.friends.map(friend => {
 			const usersData = dataset.filter(dataPt => dataPt.userID === friend);
 			const firstIndex = usersData.findIndex(x => x.date === date);
 			const pastWeek = usersData.slice(firstIndex - 6, firstIndex + 1).map(x => x.numSteps);
@@ -155,8 +155,6 @@ class Activity {
 
 			return { user: updateName, weekTotal: wkSteps }
 		})
-		
-		this.friendsWkSteps = foundSteps;
 	}
 
 	challengeWinner() {

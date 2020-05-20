@@ -85,9 +85,9 @@ class Sleep {
 			}).name;
 
 			return `${userName} slept more than any other user last night, ${sortedSleepies[0].hoursSlept} hours -- WOW!`
-		}
-		
-		findBestSleepers(dataset, date, givenClass) {
+		} //TODO: change return to an obj
+
+		transformSleepData(dataset) {
 			const allUsersSleepObj = dataset.reduce((accu, dataPt) => {
 				if (!accu[dataPt.userID]) {
 					accu[dataPt.userID] = [];
@@ -96,31 +96,37 @@ class Sleep {
 				return accu;
 			}, {})
 
-			const userIDs = Object.keys(allUsersSleepObj);
+			return { ids: Object.keys(allUsersSleepObj), users: allUsersSleepObj };
+		}
 
-			const sleepUsers = userIDs.reduce((accu, user) => {
-				const sleepDate = allUsersSleepObj[user].find(x => x.date === date);
-				const firstIndex = allUsersSleepObj[user].indexOf(sleepDate);
-				const weekSleepQual = 
-					allUsersSleepObj[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality);
+		calculateUserAverageSleep(users, date, user) {
+			const sleepDate = users[user].find(x => x.date === date);
+			const firstIndex = users[user].indexOf(sleepDate);
+			const weekSleepQuals = users[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality);	
+			return weekSleepQuals.reduce((accu, num) => accu += num / weekSleepQuals.length, 0);
+		}
 
-				const avg = weekSleepQual.reduce((accu, num) => {
-					return accu += num / weekSleepQual.length;
-				}, 0);
+		calculateUsersSleep(ids, users, givenClass, date) {
+			const sleepUsers = ids.reduce((accu, user) => {
+				const userSleepAverage = this.calculateUserAverageSleep(users, date, user);
 				
-				if (avg > 3) {
-					let userName;
-					userName = givenClass.data.find(currentUser => {
+				if (userSleepAverage > 3) {
+					const userName = givenClass.data.find(currentUser => {
 						return currentUser.id === Number(user);
 					}).name;
-
+	
 					accu.push(userName);
 				}
-
+	
 				return accu
 			}, []);
 
-			return sleepUsers;						
+			return sleepUsers;
+		}
+		
+		findBestSleepers(dataset, date, givenClass) {
+			const {ids, users} = this.transformSleepData(dataset);
+			return this.calculateUsersSleep(ids, users, givenClass, date); 
 		}
   }
   
