@@ -12,16 +12,13 @@ describe('Activity', () => {
 
 	let user1;
 	let user2;
-	let user3;
-	let userRepo;
+	const userArray = userData.map((user) => new User(user));
+	const userRepo = new UserRepository(userArray);
 	let userAct;
 
 	beforeEach(() => {
-		user1 = new User(userData[0]);
-		user2 = new User(userData[1]);
-		user3 = new User(userData[2]);
-
-		userRepo = new UserRepository([user1, user2, user3]);
+		user1 = new User(userRepo.data[0]);
+		user2 = new User(userRepo.data[1]);
 
 		userAct = new Activity(user1, activityData);
 		userAct.correctActData();
@@ -52,7 +49,7 @@ describe('Activity', () => {
 	})
 	
 	it('milesWalk method should return the miles walked for a given date', () => {
-		let getMiles = userAct.milesWalk('2019/09/22');
+		const getMiles = userAct.milesWalk('2019/09/22');
 
 		expect(getMiles).to.equal(6.57);
 	})
@@ -62,17 +59,21 @@ describe('Activity', () => {
 	})
 
 	it('method should return a list of the steps taken daily for the past week', () => {
-		let getSteps = userAct.weekMilesWalked('2019/09/22');
+		const getSteps = userAct.weekMilesWalked('2019/09/22');
 		
 		expect(getSteps).to.deep.equal([
 			9.01, 3.99, 8.12, 9.84, 11.4, 4.65, 6.57
 		]);
 	})
 	
-	//TODO: add sad test for .weekMilesWalked method ^^
+	it('if no date is given when invoked, weekMilesWalked method should return an empty array', () => {
+		const getSteps = userAct.weekMilesWalked();
+		
+		expect(getSteps).to.deep.equal([]);
+	})
 
 	it('minActive method should return the minutes active for a given date', () => {
-		let getMiles = userAct.minActive('2019/09/22');
+		const getMiles = userAct.minActive('2019/09/22');
 
 		expect(getMiles).to.equal(239);
 	})
@@ -82,17 +83,21 @@ describe('Activity', () => {
 	})
 
 	it('weekMinActive method should return a list of the minutes active for the past week', () => {
-		let getMiles = userAct.weekMinActive('2019/09/22');
+		const getMin = userAct.weekMinActive('2019/09/22');
 
-		expect(getMiles).to.deep.equal([
+		expect(getMin).to.deep.equal([
 			300, 288, 80, 218, 262, 137, 239
 		]);
 	})
 
-	//TODO: add sad test for .weekMinActive method ^^
+	it('if no date is given when invoked, weekMinActive method should return an empty array', () => {
+		const getMin = userAct.weekMinActive();
+		
+		expect(getMin).to.deep.equal([]);
+	})
 			
 	it('allUserMinActive method should return 163', () => {
-		let getAvMin = userAct.allUserMinActive(activityData, "2019/07/11");
+		const getAvMin = userAct.allUserMinActive(activityData, "2019/07/11");
 		
 		expect(getAvMin).to.equal(163);
 	})
@@ -102,7 +107,7 @@ describe('Activity', () => {
 	})
 
 	it('stepGoalResult method should tell the user they didn\'t meet their goals for this date', () => {
-		let getStepGoalRes = userAct.stepGoalResult('2019/09/22');
+		const getStepGoalRes = userAct.stepGoalResult('2019/09/22');
 
 		expect(getStepGoalRes).to.equal('You did not meet your step goal today, with 8072 steps.');
 	})
@@ -112,7 +117,7 @@ describe('Activity', () => {
 	})
 
 	it('daysGoalAchieved method should list out the dates the stepGoal was reached', () => {
-		let goalDays = userAct.daysGoalAchieved();
+		const goalDays = userAct.daysGoalAchieved();
 
 		expect(goalDays).to.deep.equal([
 			"2019/06/17", "2019/06/20", "2019/06/22", "2019/06/23", 
@@ -126,10 +131,25 @@ describe('Activity', () => {
 			"2019/09/20"]);
 	})
 
-	//TODO: Make sad test for .daysGoalAchieved method ^^
+	it('if daysGoalAchieved is invoked on a separate user, the main user\'s data won\'t show', () => {
+		const userAct2 = new Activity(user2, activityData);
+		const goalDays = userAct2.daysGoalAchieved();
+
+		expect(goalDays).to.not.equal([
+			"2019/06/17", "2019/06/20", "2019/06/22", "2019/06/23", 
+			"2019/06/28", "2019/06/30", "2019/07/05", "2019/07/07", 
+			"2019/07/08", "2019/07/09", "2019/07/14", "2019/07/20", 
+			"2019/07/21", "2019/07/22", "2019/07/26", "2019/07/31", 
+			"2019/08/01", "2019/08/08", "2019/08/10", "2019/08/15", 
+			"2019/08/17", "2019/08/24", "2019/08/25", "2019/08/29", 
+			"2019/09/05", "2019/09/07", "2019/09/09", "2019/09/11", 
+			"2019/09/12", "2019/09/15", "2019/09/16", "2019/09/19", 
+			"2019/09/20"
+		]);
+	})
 	
 	it('allUserSteps method should return 8074', () => {
-		let getAvSteps = userAct.allUserSteps(activityData, "2019/07/11");
+		const getAvSteps = userAct.allUserSteps(activityData, "2019/07/11");
 		
 		expect(getAvSteps).to.equal(8074);
 	})
@@ -137,20 +157,23 @@ describe('Activity', () => {
 	it('if no date is given when invoked, allUserSteps method should throw an error', () => {
 		expect(() => { userAct.allUserSteps() }).to.throw(Error);
 	})
-	
-	//TODO: add happy + sad tests for .stairRecord method
-	
+		
 	it('stairRecord should return user\'s record stair climb day', () => {
-		let getStairRecord = userAct.stairRecord();
+		const getStairRecord = userAct.stairRecord();
 		
 		expect(getStairRecord).to.equal(
 			'Your stair climb record was 49 flights on 2019/07/11!');
-		})
-		
-	//TODO: Make sad test or ^^
+	})
 
+	it('if stairRecord is invoked on a separate user, the main user\'s data won\'t show', () => {
+		const userAct2 = new Activity(user2, activityData);
+		const goalDays = userAct2.stairRecord();
+
+		expect(goalDays).to.not.equal('Your stair climb record was 49 flights on 2019/07/11!');
+	})
+		
 	it('allUserStairsClimbed method should return the stairs climbed average for a given date', () => {
-		let getAvStairs = userAct.allUserStairsClimbed(activityData, "2019/07/11");
+		const getAvStairs = userAct.allUserStairsClimbed(activityData, "2019/07/11");
 
 		expect(getAvStairs).to.equal(27);
 	})
@@ -159,12 +182,42 @@ describe('Activity', () => {
 		expect(() => { userAct.allUserStairsClimbed() }).to.throw(Error);
 	})
 
-	// it('friendsSteps', () => {
-	// 	let userWk = userAct.avSteps("2019/09/22");
-	// 	let getFrSteps = userAct.friendsSteps("2019/09/22", activityData, userRepo);
-	// 	let winner = userAct.challengeWinner();
-	// 	expect(getFrSteps).to.equal(27);
-	// })
+	it('weekSteps method should return the total steps taken for a given week', () => {
+		userAct.weekSteps('2019/09/22');
 
-	//IT5 tests
+		expect(userAct.wkSteps).to.equal(53954);
+	})
+
+	it('if no date is given when invoked, the weekSteps property will remain at 0', () => {
+		userAct.weekSteps();
+
+		expect(userAct.wkSteps).to.equal(0);
+	})
+
+	it('friendsSteps method should return the names and total steps for the user\'s friends for the week', () => {
+		userAct.friendsSteps('2019/09/22', activityData, userRepo);
+
+		expect(userAct.friendsWkSteps).to.deep.equal([
+			{ "user": "Garnett Cruickshank", "weekTotal": 60326 }, 
+			{ "user": "Mae Connelly", "weekTotal": 53911 }, 
+			{ "user": "Laney Abshire", "weekTotal": 44988 }
+		]);
+	})
+
+	it('if friendsSteps method is missing an argument, an error should stop the function', () => {
+		expect( () => { userAct.friendsSteps('2019/09/22', userRepo) } ).to.throw(Error);
+	})
+
+	it('challengeWinner method should declare ____ as the winner this week', () => {
+		userAct.weekSteps('2019/09/22');
+		userAct.friendsSteps('2019/09/22', activityData, userRepo);
+
+		expect(userAct.challengeWinner()).to.deep.equal({ user: 'Garnett Cruickshank', weekTotal: 60326 });
+	})
+
+	it('if challengeWinner is invoked before any friend week data is logged, the returned object won\'t be the real winner and have empty data', () => {
+		const findWinner = userAct.challengeWinner();
+
+		expect(findWinner).to.deep.equal({ user: 1, weekTotal: 0 });
+	})
 })
