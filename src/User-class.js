@@ -8,7 +8,8 @@ class User {
 			this.strideLength = userData.strideLength;
 			this.dailyStepGoal = userData.dailyStepGoal;
 			this.friends = userData.friends;
-}}
+		}
+	}
 
 	findName() {
 		const splitName = this.name.split(' ');
@@ -18,10 +19,9 @@ class User {
 
 	updateFriendName(givenClass) {
 		this.friends = this.friends.map(friend => {
-			const foundName = givenClass.data.find(dataPt => {
+			return givenClass.data.find(dataPt => {
 				return dataPt.id === friend;
 			}).name;
-			return foundName;
 		})
 	}
 }

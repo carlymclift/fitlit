@@ -6,8 +6,8 @@ class Activity {
 		this.friends = userInfo.friends;
 		this.userActData = givenActData;
 		this.todaySteps = 0;
-		this.weekAv = 0;
-		this.friendsWeekAv = [];
+		this.wkSteps = 0;
+		this.friendsWkSteps = [];
 	}
 
 	correctActData() {
@@ -99,12 +99,12 @@ class Activity {
 			return dataPt.date === date;
 		})
 
-		const avSteps = filterDate.reduce((accu, dataPt) => {
+		const weekSteps = filterDate.reduce((accu, dataPt) => {
 			accu += dataPt.numSteps;
 			return accu;
 		}, 0)
 
-		return Math.ceil(avSteps / filterDate.length);
+		return Math.ceil(weekSteps / filterDate.length);
 	}
 
 	stairRecord() {
@@ -125,15 +125,17 @@ class Activity {
 		return Math.ceil(avStairs / filterDate.length);
 	}
 
-	avSteps(date) {
+	//TODO: Stairs climbed in past week & today
+
+	weekSteps(date) {
 		const firstIndex = this.userActData.findIndex(x => x.date === date);
 		const pastWeek = this.userActData.slice(firstIndex - 6, firstIndex + 1).map(x => x.numSteps);
 		
-		const weekAv = pastWeek.reduce((accu, day) => {
+		const wkSteps = pastWeek.reduce((accu, day) => {
 			accu += day;
 			return accu;
 		}, 0);
-		this.weekAv = weekAv;
+		this.wkSteps = wkSteps;
 	}
 
 	friendsSteps(date, dataset, givenClass) {
@@ -142,7 +144,7 @@ class Activity {
 			const firstIndex = usersData.findIndex(x => x.date === date);
 			const pastWeek = usersData.slice(firstIndex - 6, firstIndex + 1).map(x => x.numSteps);
 			
-			const weekAv = pastWeek.reduce((accu, day) => {
+			const wkSteps = pastWeek.reduce((accu, day) => {
 				accu += day;
 				return accu;
 			}, 0);
@@ -151,16 +153,17 @@ class Activity {
 				return dataPt.id === friend;
 			}).name;
 
-			return { user: updateName, weekTotal: weekAv }
+			return { user: updateName, weekTotal: wkSteps }
 		})
 		
-		this.friendsWeekAv = foundSteps;
+		this.friendsWkSteps = foundSteps;
 	}
 
 	challengeWinner() {
-		this.friendsWeekAv.push({ user: this.id, weekTotal: this.weekAv });
-		const sortAv = this.friendsWeekAv.sort((a, b) => b.weekTotal - a.weekTotal);
-		return sortAv[0];
+		this.friendsWkSteps.push({ user: this.id, weekTotal: this.wkSteps });
+		const sortFriends = this.friendsWkSteps.sort((a, b) => b.weekTotal - a.weekTotal);
+
+		return sortFriends[0];
 	}
 }
 

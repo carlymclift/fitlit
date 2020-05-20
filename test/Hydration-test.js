@@ -43,7 +43,7 @@ describe('Hydration', () => {
 	})
 
 	it('should be able to get the average daily hydration for each user by id, for all time', () => {
-		let getAverage = userHydration.findHydrationAverage(hydrationData);
+		const getAverage = userHydration.findHydrationAverage(hydrationData);
 
 		expect(getAverage).to.equal(61);
 	})
@@ -53,7 +53,7 @@ describe('Hydration', () => {
   	})
 
   it('findOuncesForDay method should return the ounces consumed for the given day', () => {
-		let getData = userHydration.findOuncesForDay('2019/06/15');
+		const getData = userHydration.findOuncesForDay('2019/06/15');
 
 		expect(getData).to.equal(37);
 	})
@@ -63,7 +63,7 @@ describe('Hydration', () => {
   	})
 
 	it('findOuncesForWeek method should return the ounces consumed for the past 7 days, when given any date', () => {
-		let getData = userHydration.findOuncesForWeek('2019/07/17');
+		const getData = userHydration.findOuncesForWeek('2019/07/17');
 
 		expect(getData).to.deep.equal([
 			88, 88, 54, 27, 84, 21, 56
@@ -71,7 +71,7 @@ describe('Hydration', () => {
 	})
 	
 	it('findOuncesForWeek method should return the ounces consumed for the past 7 days when given the most current date', () => {
-		let getData = userHydration.findOuncesForWeek('2019/09/22');
+		const getData = userHydration.findOuncesForWeek('2019/09/22');
 
 		expect(getData).to.deep.equal([
 			82, 72, 86, 53, 23, 48, 68

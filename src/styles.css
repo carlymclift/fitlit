@@ -58,6 +58,10 @@ h3 {
 		padding: 14px;
 }
 
+.user-card {
+	text-align: left;
+}
+
 .user-card,
 .miles-active-card {
 	background-color: rgb(138, 114, 108);

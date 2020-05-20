@@ -4,13 +4,26 @@ const expect = chai.expect;
 
 const User = require('../src/User-class');
 const userData = require('../data/users');
+const UserRepository = require('../src/UserRepository');
 
 describe('User', () => {
 
+	const userArray = userData.map((user) => new User(user));
+	const userRepo = new UserRepository(userArray);
+
 	let user;
+	let user2 = { 
+		id: 52, 
+		name: 'Nina Christy Jones', 
+		address: '123 Applewood Dr', 
+		email: 'ninachrisJ@gmail.com',
+		strideLength: 3.5,
+		dailyStepGoal: 300,
+		friends: [2, 27, 3]
+	};
 
 	beforeEach(() => {
-		user = new User(userData[0]);
+		user = new User(userRepo.data[0]);
 	})
 
 	it('should be a function', () => {
@@ -18,7 +31,7 @@ describe('User', () => {
   })
 
 	it('should be an instance of User', () => {
-			expect(user).to.be.an.instanceof(User);
+		expect(user).to.be.an.instanceof(User);
 	})
 
 	it('should hold the accurate user id', () => {
@@ -54,43 +67,43 @@ describe('User', () => {
 	})
 
 	it('if no argument given for new User, id property is undefined', () => {
-		let badUser = new User();
+		const badUser = new User();
 
 		expect(badUser.id).to.equal(undefined);
 	})
 
 	it('if no argument given for new User, name property is undefined', () => {
-		let badUser = new User();
+		const badUser = new User();
 
 		expect(badUser.name).to.equal(undefined);
 	})
 
 	it('if no argument given for new User, address property is undefined', () => {
-		let badUser = new User();
+		const badUser = new User();
 
 		expect(badUser.address).to.equal(undefined);
 	})
 
 	it('if no argument given for new User, email property is undefined', () => {
-		let badUser = new User();
+		const badUser = new User();
 
 		expect(badUser.email).to.equal(undefined);
 	})
 
 	it('if no argument given for new User, strideLength property is undefined', () => {
-		let badUser = new User();
+		const badUser = new User();
 
 		expect(badUser.strideLength).to.equal(undefined);
 	})
 
 	it('if no argument given for new User, dailyStepGoal property is undefined', () => {
-		let badUser = new User();
+		const badUser = new User();
 
 		expect(badUser.dailyStepGoal).to.equal(undefined);
 	})
 
 	it('if no argument given for new User, friends property is undefined', () => {
-		let badUser = new User();
+		const badUser = new User();
 
 		expect(badUser.friends).to.equal(undefined);
 	})
@@ -99,5 +112,22 @@ describe('User', () => {
 		const foundName = user.findName();
 
 		expect(foundName).to.equal('Luisa');
+	})
+
+	it('if user has 2 names for a first name and there\'s not hyphen, only the first name will return', () => {
+		const longWindName = new User(user2);
+		const foundName = longWindName.findName();
+
+		expect(foundName).to.equal('Nina');
+	})
+
+	it('updateFriendName method should change the friends list of id\'s into their names', () => {
+		user.updateFriendName(userRepo);
+
+		expect(user.friends).to.deep.equal([ "Garnett Cruickshank", "Mae Connelly", "Laney Abshire"]);
+	})
+
+	it('if updateFriendName is not passed an argument, an error will throw', () => {
+		expect(() => { user.updateFriendName() }).to.throw(Error);
 	})
 })
