@@ -199,3 +199,26 @@ const updateOnload = () => {
 }
 
 window.addEventListener('load', updateOnload);
+
+var ctx = document.getElementById('myChart').getContext('2d');
+// let randomUser = currentUser;
+let hydration = new Hydration(randomUser, hydrationData);
+const hydrationChart = hydration.findOuncesForWeek('2019/09/22');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: ['Saturday', 'Friday', 'Thurdsay', 'Wednesday', 'Tuesday', 'Monday', 'Today'],
+        datasets: [{
+            label: 'Hydration for the past week:',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: hydrationChart
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
