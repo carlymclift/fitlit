@@ -213,12 +213,15 @@ var chart = new Chart(hydro, {
         labels: ['Saturday', 'Friday', 'Thurdsay', 'Wednesday', 'Tuesday', 'Monday', 'Today'],
         datasets: [{
             label: 'Hydration for the past week:',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgb(200, 99, 132)',
+			borderColor: 'rgb(255, 99, 132)',
             data: hydrationChart
         }]
     },
-    options: {}
+    options: {
+		responsive: true,
+		maintainAspectRatio: false,
+	}
 });
 
 var slTime = document.getElementById('sleep-time-per-week').getContext('2d');
@@ -229,13 +232,16 @@ var chart = new Chart(slTime, {
     data: {
         labels: ['Saturday', 'Friday', 'Thurdsay', 'Wednesday', 'Tuesday', 'Monday', 'Today'],
         datasets: [{
-            label: 'Hydration for the past week:',
+            label: 'Sleep Time for the past week:',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             data: sleepChart
         }]
     },
-    options: {}
+    options: {
+		responsive: true,
+		maintainAspectRatio: false,
+	}
 });
 
 var slQual = document.getElementById('sleep-quality-per-week').getContext('2d');
@@ -245,13 +251,16 @@ var chart = new Chart(slQual, {
     data: {
         labels: ['Saturday', 'Friday', 'Thurdsay', 'Wednesday', 'Tuesday', 'Monday', 'Today'],
         datasets: [{
-            label: 'Hydration for the past week:',
+            label: 'Quality of sleep for the past week:',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             data: qualityChart
         }]
     },
-    options: {}
+    options: {
+		responsive: true,
+		maintainAspectRatio: false,
+	}
 });
 
 var walk = document.getElementById('miles-walked-per-week').getContext('2d');
@@ -262,13 +271,16 @@ var chart = new Chart(walk, {
     data: {
         labels: ['Saturday', 'Friday', 'Thurdsay', 'Wednesday', 'Tuesday', 'Monday', 'Today'],
         datasets: [{
-            label: 'Hydration for the past week:',
+            label: 'Miles walked for the past week:',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             data: milesChart
         }]
     },
-    options: {}
+    options: {
+		responsive: true,
+		maintainAspectRatio: false,
+	}
 });
 
 var activ = document.getElementById('activity-per-week').getContext('2d');
@@ -278,11 +290,14 @@ var chart = new Chart(activ, {
     data: {
         labels: ['Saturday', 'Friday', 'Thurdsay', 'Wednesday', 'Tuesday', 'Monday', 'Today'],
         datasets: [{
-            label: 'Hydration for the past week:',
+            label: 'Minutes active for the past week:',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             data: activeChart
         }]
     },
-    options: {}
+    options: {
+		responsive: true,
+		maintainAspectRatio: false,
+	}
 });
