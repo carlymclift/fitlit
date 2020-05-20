@@ -43,3 +43,4 @@ Enter open src/index.html
 
 ## Systems/Practices
 	- git/Version Control
+	- PR Template
