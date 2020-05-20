@@ -107,7 +107,7 @@ const updateSleepQuality = (currSleep) => {
 	userSleepQuality.innerHTML = `
 		<p>On a 1-5 scale, on average your sleep quality is at a ${avQuality}.</br></br>
 		Amongst all FitLit users, the average sleep quality is ${avSleepQuality}.</br></br>
-		Last night your sleep quality was ${todayQuality}.
+		Last night your sleep quality was ${todayQuality}.</br></br>
 		Your past week sleep quality:</br></br>
 		Saturday: ${weekQuality[5]}</br></br>
 		Friday: ${weekQuality[4]}</br></br>
@@ -166,6 +166,7 @@ const updateStairs = (currentAct) => {
 
 const updateSteps = (currentAct) => {
 	const todaySteps = currentAct.stepGoalResult('2019/09/22');
+	const avGoal = userRepo.fetchAverageStepGoal();
 	const goalDays = currentAct.daysGoalAchieved();
 	const allUserTodaySteps = currentAct.allUserSteps(activityData, '2019/09/22');
 	currentAct.weekSteps('2019/09/22');
@@ -173,6 +174,7 @@ const updateSteps = (currentAct) => {
 	userSteps.innerHTML = `
 		<p>You took ${currentAct.wkSteps} steps this week.</br></br>
 		Your daily step goal is ${randomUser.dailyStepGoal} steps.</br></br>
+		The average step goal amongst all users is ${avGoal} steps.</br></br>
 		${todaySteps}</br></br>
 		Past log for all the days you achieved your step goal:</br></br>
 		<ul class="goal-log">${goalDaysToList(goalDays)}</ul>

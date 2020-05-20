@@ -8,7 +8,7 @@ class UserRepository {
 	}
 
 	fetchAverageStepGoal() {
-			let average = this.data.reduce((acc, user) => {
+			const average = this.data.reduce((acc, user) => {
 					acc += user.dailyStepGoal
 					return acc;
 			}, 0)

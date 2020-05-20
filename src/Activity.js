@@ -125,6 +125,8 @@ class Activity {
 		return Math.ceil(avStairs / filterDate.length);
 	}
 
+	//TODO: Stairs climbed in past week & today
+
 	weekSteps(date) {
 		const firstIndex = this.userActData.findIndex(x => x.date === date);
 		const pastWeek = this.userActData.slice(firstIndex - 6, firstIndex + 1).map(x => x.numSteps);
