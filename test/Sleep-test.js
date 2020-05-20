@@ -7,6 +7,7 @@ const sleepData = require('../data/sleep');
 const UserRepository = require('../src/UserRepository');
 const Sleep = require('../src/Sleep');
 
+console.log(sleepData)
 describe('Sleep', () => {
 
 	let user1;
@@ -92,7 +93,9 @@ describe('Sleep', () => {
 		]);
 	})
 
-	//TODO: add sad test for .findUserSleepForWeek method ^^
+	it('if no user date is given, findUserSleepForDayWeek method should throw an error', () => {
+		expect(() => { userSleep.findUserSleepForWeek() }).to.throw(Error);
+	}) //TODO: add sad test for .findUserSleepForWeek method ^^
 
 	it('should be able to find the average sleep quality for each user by id, for a given week', () => {
 		let getSleepQual = userSleep.findUserQualityForWeek('2019/09/02');
@@ -112,7 +115,12 @@ describe('Sleep', () => {
 
 	//TODO: add sad test for .findAverageSleep method ^^
 
-	//TODO: add happy + sad test for .findAverageQuality method
+	it('should be able to find the average sleep quality for all users, all time', () => {
+		let getQualAv = userSleep.findAverageQuality();
+
+		expect(getQualAv).to.equal(3);
+	})
+	//TODO: add sad test for .findAverageQuality method
 
 	it('should be able to find the user who slept the most for a given date', () => {
 		let findSleepy = userSleep.findMostSleepUser(sleepData, '2019/07/21', userRepo);
@@ -123,17 +131,17 @@ describe('Sleep', () => {
 	//TODO: add sad test for . method ^^
 
 
-	// it('should return the users with the best sleep week, quality over 3', () => {
-	// 	let findBest = userSleep.findBestSleepers(sleepData, '2019/07/21', userRepo);
+	it('should return the users with the best sleep week, quality over 3', () => {
+		let findBest = userSleep.findBestSleepers(sleepData, '2019/07/21', userRepo);
 
-	// 	expect(findBest).to.deep.equal([
-	// 		1,  4,  6,  7,  8,  9, 10, 14,
-	// 	 15, 17, 18, 20, 22, 23, 24, 28,
-	// 	 29, 31, 33, 34, 35, 37, 38, 40,
-	// 	 43, 44, 47
-	//  ]);
-	// })
+		expect(findBest).to.deep.equal([
+			1,  4,  6,  7,  8,  9, 10, 14,
+		 15, 17, 18, 20, 22, 23, 24, 28,
+		 29, 31, 33, 34, 35, 37, 38, 40,
+		 43, 44, 47
+	 ]);
+	})
 
-	//TODO: add happy + sad test for .findBestSleepers method
+	//TODO: add sad test for .findBestSleepers method
 
 })
