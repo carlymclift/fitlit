@@ -23,27 +23,32 @@
 			
       <div class="water-card card">
         <h3>Hydration</h3>
-				<div class="h2o"></div>
+        <div class="h2o"></div>
+        <canvas id="hydro-per-week"></canvas>
 			</div>
 			
       <div class="sleep-time-card card">
         <h3>Sleep Time</h3>
         <div class="sleep-time"></div>
+        <canvas id="sleep-time-per-week"></canvas>
       </div>
       
       <div class="sleep-quality-card card">
         <h3>Sleep Quality</h3>
         <div class="sleep-quality"></div>
+        <canvas id="sleep-quality-per-week"></canvas>
 			</div>
 			
       <div class="miles-card card">
         <h3>Miles Walked</h3>
-				<div class="miles-walked"></div>
+        <div class="miles-walked"></div>
+        <canvas id="miles-walked-per-week"></canvas>
 			</div>
 			
       <div class="min-active-card card">
         <h3>Minutes Active</h3>
         <div class="min-active"></div>
+        <canvas id="activity-per-week"></canvas>
 			</div>
 			
 			<div class="stairs-card card">
@@ -61,8 +66,9 @@
 				<p class="winner"></p>
         <ul class="friend-data"></ul>
       </div>
-		</section>
-		
+    </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script type="text/javascript" src="../data/users.js"></script>
     <script type="text/javascript" src="../data/hydration.js"></script>
     <script type="text/javascript" src="../data/sleep.js"></script>
