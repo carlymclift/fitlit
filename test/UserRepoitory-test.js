@@ -33,27 +33,27 @@ describe('UserRepository', () => {
   })
     
 	it('should be undefined if no arguement is given for the user', () => {
-		let noUser = new UserRepository()
+		const noUser = new UserRepository()
 		expect(noUser.data).to.equal(undefined);
 	})
 
 	it('should be able to get data by the user id', () => {
-		let getData = userRepository.getDataById(2)
+		const getData = userRepository.getDataById(2)
 		expect(getData).to.equal(user2)
   })
     
 	it('should be undefined if no id is provided for the data', () => {
-		let getData = userRepository.getDataById()
+		const getData = userRepository.getDataById()
 		expect(getData).to.equal(undefined)
 	})
 
 	it('should be able to get average step goal for user', () => {
-		let getSteps = userRepository.fetchAverageStepGoal(2)
+		const getSteps = userRepository.fetchAverageStepGoal(2)
 		expect(getSteps).to.equal(6667)
 	})
 	
 	it('if fetchAverageStepGoal method is invoked on an undefined UserRepository, an error should throw', () => {
-		let noUser = new UserRepository()
+		const noUser = new UserRepository()
 		expect(() => { noUser.fetchAverageStepGoal() }).to.throw(Error);
 	})
 });

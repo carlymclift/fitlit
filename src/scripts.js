@@ -5,12 +5,12 @@ const userAddress = document.querySelector('.address');
 const userEmail = document.querySelector('.email');
 const userFriends = document.querySelector('.friends');
 const h2o = document.querySelector('.h2o');
-const userMiles = document.querySelector('.miles-walked');
-const userMinAct = document.querySelector('.min-active');
-const userSteps = document.querySelector('.steps');
-const userStairs = document.querySelector('.stairs');
 const userSleepTime = document.querySelector('.sleep-time');
 const userSleepQuality = document.querySelector('.sleep-quality');
+const userMiles = document.querySelector('.miles-walked');
+const userMinAct = document.querySelector('.min-active');
+const userStairs = document.querySelector('.stairs');
+const userSteps = document.querySelector('.steps');
 const friendSteps = document.querySelector('.friend-data');
 const stepWinner = document.querySelector('.winner');
 
@@ -21,16 +21,31 @@ let currentHydration = {};
 let currentActivity = {};
 let currentSleep = {};
 
+const updateOnload = () => {
+	chooseRandom();
+	updateWelcome(randomUser);
+	updateHydration(currentHydration);
+	updateMiles(currentActivity);
+	updateMinAct(currentActivity);
+	updateSteps(currentActivity);
+	updateStairs(currentActivity);
+	updateSleepTime(currentSleep);
+	updateSleepQuality(currentSleep);
+	updateChallenge(currentActivity);
+}
+
+window.addEventListener('load', updateOnload);
+
 const chooseRandom = () => {
 	const randomNum = (Math.floor(Math.random() * userRepo.data.length));
 	
 	randomUser = userRepo.data[randomNum];
 	currentHydration = new Hydration(randomUser, hydrationData);
 	currentHydration.correctHydroData();
-	currentActivity = new Activity(randomUser, activityData);
-	currentActivity.correctActData();
 	currentSleep = new Sleep(randomUser, sleepData);
 	currentSleep.correctSleepData();
+	currentActivity = new Activity(randomUser, activityData);
+	currentActivity.correctActData();
 }
 
 const updateWelcome = (currentUser) => {
@@ -58,6 +73,51 @@ const updateHydration = (currentHydro) => {
 		Tuesday: ${ouncesForWeek[1]} ounces</br></br>
 		Monday: ${ouncesForWeek[0]} ounces
 		`;
+}
+
+const updateSleepTime = (currSleep) => {
+	const todaySleep = currSleep.findUserSleepForDay('2019/09/22');
+	const weekSleep = currSleep.findUserSleepForWeek('2019/09/22');
+	const avSleep = currSleep.findUserAverageSleep(sleepData);
+	const mostSleep = currSleep.findMostSleepUser(sleepData, '2019/09/22', userRepo);
+	const avSleepTime = currSleep.findAverageSleep();
+
+	userSleepTime.innerHTML = `
+		<p>On average you sleep ${avSleep} hours per night</br></br>
+		All FitLit user's average ${avSleepTime} hours per night</br></br>
+		Last night you slept for ${todaySleep} hours.</br></br>
+		Your past week sleeplog:</br></br>
+		Saturday: ${weekSleep[5]} hours</br></br>
+		Friday: ${weekSleep[4]} hours</br></br>
+		Thurdsay: ${weekSleep[3]} hours</br></br>
+		Wednesday: ${weekSleep[2]} hours</br></br>
+		Tuesday: ${weekSleep[1]} hours</br></br>
+		Monday: ${weekSleep[0]} hours</br></br>
+		FitLit's sleepiest user last night was: ${mostSleep}.
+	`
+}
+
+const updateSleepQuality = (currSleep) => {
+	const todayQuality = currSleep.findUserSleepQualityForDay('2019/09/22');
+	const weekQuality = currSleep.findUserQualityForWeek('2019/09/22');
+	const avQuality = currSleep.findUserAverageQuality(sleepData);
+	const bestSleep = currSleep.findBestSleepers(sleepData, '2019/09/22', userRepo);
+	const avSleepQuality = currSleep.findAverageQuality();
+
+	userSleepQuality.innerHTML = `
+		<p>On a 1-5 scale, on average your sleep quality is at a ${avQuality}.</br></br>
+		Amongst all FitLit users, the average sleep quality is ${avSleepQuality}.</br></br>
+		Last night your sleep quality was ${todayQuality}.</br></br>
+		Your past week sleep quality:</br></br>
+		Saturday: ${weekQuality[5]}</br></br>
+		Friday: ${weekQuality[4]}</br></br>
+		Thurdsay: ${weekQuality[3]}</br></br>
+		Wednesday: ${weekQuality[2]}</br></br>
+		Tuesday: ${weekQuality[1]}</br></br>
+		Monday: ${weekQuality[0]}</br></br>
+		FitLit users who scored above a 3 in sleep quality this last week:</br></br>
+		${bestSleep}
+	`
 }
 
 const updateMiles = (currentAct) => {
@@ -94,25 +154,6 @@ const updateMinAct = (currentAct) => {
 		`;
 }
 
-const updateSteps = (currentAct) => {
-	const todaySteps = currentAct.stepGoalResult('2019/09/22');
-	const avSteps = currentAct.avSteps('2019/09/22');
-	const goalDays = currentAct.daysGoalAchieved();
-	const allUserTodaySteps = currentAct.allUserSteps(activityData, '2019/09/22');
-
-	userSteps.innerHTML = `
-		<p>Your daily step goal is ${randomUser.dailyStepGoal} steps.</br></br>
-		${todaySteps}</br></br>
-		You took ${currentAct.weekAv} steps this week.</br></br>
-		Past log for all the days you achieved your step goal:</br></br>
-		<ul class="goal-log">${goalDaysToList(goalDays)}</ul>
-		Today all FitLit user's averaged ${allUserTodaySteps} steps.
-		`;
-}
-
-const goalDaysToList = (goalDays) => goalDays
-	.map(day => `<li>${day}</li>`).join('');
-
 const updateStairs = (currentAct) => {
 	const stairRecord = currentAct.stairRecord();
 	const allUserStairs = currentAct.allUserStairsClimbed(activityData, '2019/09/22');
@@ -123,58 +164,34 @@ const updateStairs = (currentAct) => {
 		`;
 }
 
-const updateSleepTime = (currSleep) => {
-	const todaySleep = currSleep.findUserSleepForDay('2019/09/22');
-	const weekSleep = currSleep.findUserSleepForWeek('2019/09/22');
-	const avSleep = currSleep.findUserAverageSleep(sleepData);
-	const mostSleep = currSleep.findMostSleepUser(sleepData, '2019/09/22', userRepo);
-	const avSleepTime = currSleep.findAverageSleep();
+const updateSteps = (currentAct) => {
+	const todaySteps = currentAct.stepGoalResult('2019/09/22');
+	const avGoal = userRepo.fetchAverageStepGoal();
+	const goalDays = currentAct.daysGoalAchieved();
+	const allUserTodaySteps = currentAct.allUserSteps(activityData, '2019/09/22');
+	currentAct.weekSteps('2019/09/22');
 
-	userSleepTime.innerHTML = `
-		<p>On average you sleep ${avSleep} hours per night</br></br>
-		All FitLit user's average ${avSleepTime} hours per night</br></br>
-		Last night you slept for ${todaySleep} hours.</br></br>
-		Your past week sleeplog:</br></br>
-		Saturday: ${weekSleep[5]} hours</br></br>
-		Friday: ${weekSleep[4]} hours</br></br>
-		Thurdsay: ${weekSleep[3]} hours</br></br>
-		Wednesday: ${weekSleep[2]} hours</br></br>
-		Tuesday: ${weekSleep[1]} hours</br></br>
-		Monday: ${weekSleep[0]} hours</br></br>
-		FitLit's sleepiest user last night was: ${mostSleep}.
-	`
+	userSteps.innerHTML = `
+		<p>You took ${currentAct.wkSteps} steps this week.</br></br>
+		Your daily step goal is ${randomUser.dailyStepGoal} steps.</br></br>
+		The average step goal amongst all users is ${avGoal} steps.</br></br>
+		${todaySteps}</br></br>
+		Past log for all the days you achieved your step goal:</br></br>
+		<ul class="goal-log">${goalDaysToList(goalDays)}</ul>
+		Today all FitLit user's averaged ${allUserTodaySteps} steps.
+		`;
 }
 
-const updateSleepQuality = (currSleep) => {
-	const todayQuality = currSleep.findUserSleepQualityForDay('2019/09/22');
-	const weekQuality = currSleep.findUserQualityForWeek('2019/09/22');
-	const avQuality = currSleep.findUserAverageQuality(sleepData);
-	const bestSleep = currSleep.findBestSleepers(sleepData, '2019/09/22', userRepo);
-	const avSleepQuality = currSleep.findAverageQuality();
+const goalDaysToList = (goalDays) => goalDays
+	.map(day => `<li>${day}</li>`).join('');
 
-	userSleepQuality.innerHTML = `
-		<p>On a 1-5 scale, on average your sleep quality is at a ${avQuality}.</br></br>
-		Amongst all FitLit users, the average sleep quality is ${avSleepQuality}.</br></br>
-		Last night your sleep quality was ${todayQuality}.
-		Your past week sleep quality:</br></br>
-		Saturday: ${weekQuality[5]}</br></br>
-		Friday: ${weekQuality[4]}</br></br>
-		Thurdsay: ${weekQuality[3]}</br></br>
-		Wednesday: ${weekQuality[2]}</br></br>
-		Tuesday: ${weekQuality[1]}</br></br>
-		Monday: ${weekQuality[0]}</br></br>
-		FitLit users who scored above a 3 in sleep quality this last week:</br></br>
-		${bestSleep}
-	`
-}
-
-const challenge = (currentAct) => {
+const updateChallenge = (currentAct) => {
 	updateSteps(currentAct);
-	currentAct.avSteps('2019/09/22');
+	currentAct.weekSteps('2019/09/22');
 	currentAct.friendsSteps('2019/09/22', activityData, userRepo);
 
-	for (let i =0; i< currentAct.friendsWeekAv.length; i++) {
-		friendSteps.insertAdjacentHTML('beforeend', `<li>${currentAct.friendsWeekAv[i].user} took ${currentAct.friendsWeekAv[i].weekTotal} steps this week.</li></br>`);
+	for (let i =0; i< currentAct.friendsWkSteps.length; i++) {
+		friendSteps.insertAdjacentHTML('beforeend', `<li>${currentAct.friendsWkSteps[i].user} took ${currentAct.friendsWkSteps[i].weekTotal} steps this week.</li></br>`);
 	}
 
 	const weekWinner = currentAct.challengeWinner();
@@ -184,18 +201,3 @@ const challenge = (currentAct) => {
 		stepWinner.innerHTML = `${weekWinner.user} wins this week! They took ${weekWinner.weekTotal} steps!</br></br>`;
 	}
 }
-
-const updateOnload = () => {
-	chooseRandom();
-	updateWelcome(randomUser);
-	updateHydration(currentHydration);
-	updateMiles(currentActivity);
-	updateMinAct(currentActivity);
-	updateSteps(currentActivity);
-	updateStairs(currentActivity);
-	updateSleepTime(currentSleep);
-	updateSleepQuality(currentSleep);
-	challenge(currentActivity);
-}
-
-window.addEventListener('load', updateOnload);
