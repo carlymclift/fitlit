@@ -161,8 +161,8 @@ describe('Activity', () => {
 	it('stairRecord should return user\'s record stair climb day', () => {
 		const getStairRecord = userAct.stairRecord();
 		
-		expect(getStairRecord).to.equal(
-			'Your stair climb record was 49 flights on 2019/07/11!');
+		expect(getStairRecord.stairFlights).to.equal(49);
+		expect(getStairRecord.date).to.equal('2019/07/11');
 	})
 
 	it('if stairRecord is invoked on a separate user, the main user\'s data won\'t show', () => {
@@ -180,6 +180,28 @@ describe('Activity', () => {
 
 	it('if no date is given when invoked, allUserStairsClimbed method should throw an error', () => {
 		expect(() => { userAct.allUserStairsClimbed() }).to.throw(Error);
+	})
+
+	it('userStairsWeek method should update the stairs property to equal the stairs climbed for the past week of a given date', () => {
+		userAct.userStairsWeek("2019/09/22");
+
+		expect(userAct.stairs).to.equal(176);
+	})
+
+	it('if no date is given when userStairsToday method is invoked, the Activity\'s stairs property stays at 0', () => {
+		userAct.userStairsWeek();
+		
+		expect(userAct.stairs).to.equal(0);
+	})
+	
+	it('userStairsToday method should return the stairs climbed for a given date', () => {
+		const todayStairs = userAct.userStairsToday("2019/09/22");
+
+		expect(todayStairs).to.equal(23);
+	})
+
+	it('if no date is given when userStairsToday method is invoked, an error should throw', () => {		
+		expect(() => { userAct.userStairsToday() }).to.throw(Error);
 	})
 
 	it('weekSteps method should return the total steps taken for a given week', () => {

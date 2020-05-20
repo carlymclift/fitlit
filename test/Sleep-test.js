@@ -7,23 +7,15 @@ const sleepData = require('../data/sleep');
 const UserRepository = require('../src/UserRepository');
 const Sleep = require('../src/Sleep');
 
-console.log(sleepData)
 describe('Sleep', () => {
 
 	let user1;
-	let user2;
-	let user3;
-	let user4;
-	let userRepo;
+	const userArray = userData.map((user) => new User(user));
+	const userRepo = new UserRepository(userArray);
 	let userSleep;
 
 	beforeEach(() => {
-		user1 = new User(userData[0]);
-		user2 = new User(userData[1]);
-		user3 = new User(userData[2]);
-		user4 = new User(userData[23]);
-
-		userRepo = new UserRepository([user1, user2, user3, user4]);
+		user1 = new User(userRepo.data[0]);
 
 		userSleep = new Sleep(user1, sleepData);
 		userSleep.correctSleepData();
@@ -46,17 +38,17 @@ describe('Sleep', () => {
 	})
 	
 	it('should be able to get the average sleep for each user by id, for all time', () => {
-		let getSleepAv = userSleep.findUserAverageSleep(sleepData);
+		const getSleepAv = userSleep.findAllUserAverageSleep(sleepData);
 
 		expect(getSleepAv).to.equal(8);
 	})
 	
 	it('if no user id is given, findUserAverageSleep method should throw an error', () => {
-		expect(() => { userSleep.findUserAverageSleep() }).to.throw(Error);
+		expect(() => { userSleep.findAllUserAverageSleep() }).to.throw(Error);
 	})
 	
 	it('should be able to get the average sleep quality for each user by id, for all time', () => {
-		let getQualityAv = userSleep.findUserAverageQuality(sleepData);
+		const getQualityAv = userSleep.findUserAverageQuality(sleepData);
 
 		expect(getQualityAv).to.equal(3);
 	})
@@ -66,7 +58,7 @@ describe('Sleep', () => {
 	})
 
 	it('should be able to find the hours of sleep for each user by id, for a given day', () => {
-		let getDaySleep = userSleep.findUserSleepForDay('2019/06/15');
+		const getDaySleep = userSleep.findUserSleepForDay('2019/06/15');
 
 		expect(getDaySleep).to.equal(6.1);
 	})
@@ -76,7 +68,7 @@ describe('Sleep', () => {
 	})
 
 	it('should be able to find the quality of sleep for each user by id, for a given day', () => {
-		let getQualitySleep = userSleep.findUserSleepQualityForDay('2019/06/15');
+		const getQualitySleep = userSleep.findUserSleepQualityForDay('2019/06/15');
 
 		expect(getQualitySleep).to.equal(2.2);
 	})
@@ -86,62 +78,91 @@ describe('Sleep', () => {
 	})
 
 	it('should be able to find the average sleep for each user by id, for a given week', () => {
-		let getSleep = userSleep.findUserSleepForWeek('2019/09/02');
+		const getSleep = userSleep.findUserSleepForWeek('2019/09/02');
 
 		expect(getSleep).to.deep.equal([
 			 5.4, 7.9, 9.9, 4.3, 7.1, 4.4, 7.7 
 		]);
 	})
 
-	it('if no user date is given, findUserSleepForDayWeek method should throw an error', () => {
-		expect(() => { userSleep.findUserSleepForWeek() }).to.throw(Error);
-	}) //TODO: add sad test for .findUserSleepForWeek method ^^
+	it('if no user date is given, findUserSleepForWeek should return an empty array', () => {
+		const getSleep = userSleep.findUserSleepForWeek();
+
+		expect(getSleep).to.deep.equal([]);
+	})
 
 	it('should be able to find the average sleep quality for each user by id, for a given week', () => {
-		let getSleepQual = userSleep.findUserQualityForWeek('2019/09/02');
+		const getSleepQual = userSleep.findUserQualityForWeek('2019/09/02');
 
 		expect(getSleepQual).to.deep.equal([
 			 1.4, 1.6, 1.6, 1.6, 1.9, 2.7, 4.4 
 		]);
 	})
 
-	//TODO: add sad test for .findUserQualityForWeek method ^^
+	it('if no user date is given, findUserQualityForWeek should return an empty array', () => {
+		const getSleepQual = userSleep.findUserQualityForWeek();
 
-	it('should be able to find the average sleep for all users, all time', () => {
-		let getSleepAv = userSleep.findAverageSleep();
+		expect(getSleepQual).to.deep.equal([]);
+	})
+
+	it('should be able to find current users\'s average sleep for all time', () => {
+		const getSleepAv = userSleep.findAverageSleep();
 
 		expect(getSleepAv).to.equal(8);
 	})
 
-	//TODO: add sad test for .findAverageSleep method ^^
+	it('if findAverageSleep method is invoked on an undefined sleep instance, NaN should return', () => {
+		const badUser = new User();
+		const badSleepObj = new Sleep(badUser, sleepData);
+		badSleepObj.correctSleepData();
+		const getSleepAv = badSleepObj.findAverageSleep();
 
-	it('should be able to find the average sleep quality for all users, all time', () => {
-		let getQualAv = userSleep.findAverageQuality();
-
-		expect(getQualAv).to.equal(3);
+		expect(getSleepAv).to.deep.equal(NaN);
 	})
-	//TODO: add sad test for .findAverageQuality method
+
+	it('should be able to find current users\'s average sleep quality for all time', () => {
+		const getQualAvg = userSleep.findAverageQuality();
+
+		expect(getQualAvg).to.equal(3);
+	})
+
+	it('if findAverageQuality method is invoked on an undefined sleep instance, NaN should return', () => {
+		const badUser = new User();
+		const badSleepObj = new Sleep(badUser, sleepData);
+		badSleepObj.correctSleepData();
+		const getQualAvg = badSleepObj.findAverageQuality();
+
+		expect(getQualAvg).to.deep.equal(NaN);
+	})
 
 	it('should be able to find the user who slept the most for a given date', () => {
-		let findSleepy = userSleep.findMostSleepUser(sleepData, '2019/07/21', userRepo);
+		const findMostSleepUser = userSleep.findMostSleepUser(sleepData, '2019/07/21', userRepo);
 
-		expect(findSleepy).to.equal('Kristin Cruickshank slept more than any other user last night, 10.6 hours -- WOW!');
+		expect(findMostSleepUser.user).to.equal('Kristin Cruickshank');
+		expect(findMostSleepUser.hoursSlept).to.equal(10.6);
 	})
 
-	//TODO: add sad test for . method ^^
-
+	it('if findMostSleepUser method is invoked while missing an argument, an error should throw', () => {
+		expect(() => { userSleep.findMostSleepUser(sleepData, '2019/07/21') }).to.throw(Error);
+	})
 
 	it('should return the users with the best sleep week, quality over 3', () => {
-		let findBest = userSleep.findBestSleepers(sleepData, '2019/07/21', userRepo);
+		const findBest = userSleep.findBestSleepers(sleepData, '2019/07/21', userRepo);
 
 		expect(findBest).to.deep.equal([
-			1,  4,  6,  7,  8,  9, 10, 14,
-		 15, 17, 18, 20, 22, 23, 24, 28,
-		 29, 31, 33, 34, 35, 37, 38, 40,
-		 43, 44, 47
+			"Luisa Hane", "Mae Connelly", "Jerrold Bogisich", 
+			"Breanne Fay", "Laney Abshire", "Myron Schmitt", 
+			"Roslyn Bernhard", "Gloria Frami", "Ezequiel Feest", 
+			"Jade Walter", "Dan Hodkiewicz", "Ora O'Connell", 
+			"Maria Kemmer", "Karli Rodriguez", "Kristin Cruickshank", 
+			"Noemi Huels", "Colten Trantow", "Bertrand Yundt", 
+			"Leilani Quitzon", "Lindsay Ruecker", "Nico Bechtelar", 
+			"Erling Anderson", "Kaitlyn Weber", "Esperanza Schumm", 
+			"Alfonso Sporer", "Cora Rice", "Jevon Koss"
 	 ]);
 	})
 
-	//TODO: add sad test for .findBestSleepers method
-
+	it('if findBestSleepers method is invoked missing an argument, an error will throw', () => {
+		expect(() => { userSleep.findBestSleepers(sleepData, '2019/07/21') }).to.throw(Error);
+	})
 })

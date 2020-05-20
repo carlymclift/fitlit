@@ -11,7 +11,7 @@ class Sleep {
       this.userSleepData = currentSleepData;
     }
   
-    findUserAverageSleep(dataset) {
+    findAllUserAverageSleep(dataset) {
       const avSleep = dataset.reduce((acc, user) => {
         acc += user.hoursSlept;
         return acc;
@@ -84,8 +84,8 @@ class Sleep {
 				return user.id === sortedSleepies[0].userID;
 			}).name;
 
-			return `${userName} slept more than any other user last night, ${sortedSleepies[0].hoursSlept} hours -- WOW!`
-		} //TODO: change return to an obj
+			return { user: userName, hoursSlept: sortedSleepies[0].hoursSlept }
+		}
 
 		transformSleepData(dataset) {
 			const allUsersSleepObj = dataset.reduce((accu, dataPt) => {
@@ -103,6 +103,7 @@ class Sleep {
 			const sleepDate = users[user].find(x => x.date === date);
 			const firstIndex = users[user].indexOf(sleepDate);
 			const weekSleepQuals = users[user].slice(firstIndex, firstIndex + 7).map(x => x.sleepQuality);	
+
 			return weekSleepQuals.reduce((accu, num) => accu += num / weekSleepQuals.length, 0);
 		}
 
