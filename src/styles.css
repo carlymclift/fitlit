@@ -45,6 +45,7 @@ h3 {
 
 .card {
 		background-color: lightblue;
+		opacity: .7;
 		border-radius: 25px;
 		margin-top: 40px;
 		margin-left: 3px;
