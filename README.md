@@ -10,20 +10,20 @@ To encourage user interaction, data is shown for the entire FitLit user-base fit
 ## In Action
 Below is the landing page for FitLit. We can see there is a Contact widget showing the user's personal information and friends list. A Hydration, Sleep Time, and Sleep Quality widget. All these display the current user's hydrating and sleep history information. Similar information about all user's averages are displayed as well, as a point of reference for the user.
 
-![landing page](1.png)
+<img width="1360" alt="1" src="https://user-images.githubusercontent.com/59381432/82518043-ada4de80-9adb-11ea-8e20-c2c4f8d31f70.png">
 
 
 Further down, we can see the Miles Walked, Minutes Active, Stairs Climbed, and Steps Taken widgets.
 
-![app section2](https://imgur.com/a/qnGoV9o)
+<img width="1359" alt="2" src="https://user-images.githubusercontent.com/59381432/82518058-bc8b9100-9adb-11ea-957b-63d484c58a2b.png">
 
 In the last portion of the application, the Friend Step Challenge and the log of dates the user achieved their step goal are now visible.
 
-![app section3](https://imgur.com/a/6q5rxOg)
+<img width="1357" alt="3" src="https://user-images.githubusercontent.com/59381432/82518078-c7debc80-9adb-11ea-82bb-9163d54b29df.png">
 
 Here, it's shown when the current user wins the Step Challenge. FitLit gives a friendly congratulatory message.
 
-![user wins](https://imgur.com/a/ygSCBSt)
+<img width="1358" alt="4" src="https://user-images.githubusercontent.com/59381432/82518099-d331e800-9adb-11ea-9426-199de6dda6b4.png">
 
 ## Setup
 
@@ -60,7 +60,7 @@ Enter open src/index.html
 ### Challenges
 - We tried to import the 3rd party library charts.js to render our data in a more appealing way. But ultimately, couldn't link up the correct number pathways into the library. (pictured below)
 
-![charts](https://imgur.com/a/zxOik5u)
+<img width="1359" alt="challenge" src="https://user-images.githubusercontent.com/59381432/82518135-e3e25e00-9adb-11ea-899a-503f45d4e26f.png">
 
 ## Technologies Used
 - JavaScript, ES6
