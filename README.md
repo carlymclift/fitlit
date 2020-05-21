@@ -26,7 +26,7 @@ Here, it's shown when the current user wins the Step Challenge. FitLit gives a f
 
 ## Setup
 
-Go to this URL for the GitHub Deployed Page:
+Go to this URL for the GitHub Deployed Page: https://carlymclift.github.io/fitlit/
 
 -OR-
 
