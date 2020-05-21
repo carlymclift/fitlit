@@ -10,7 +10,8 @@ To encourage user interaction, data is shown for the entire FitLit user-base fit
 ## In Action
 Below is the landing page for FitLit. We can see there is a Contact widget showing the user's personal information and friends list. A Hydration, Sleep Time, and Sleep Quality widget. All these display the current user's hydrating and sleep history information. Similar information about all user's averages are displayed as well, as a point of reference for the user.
 
-![landing page](https://imgur.com/a/KRT5woz)
+![landing page](1.png)
+
 
 Further down, we can see the Miles Walked, Minutes Active, Stairs Climbed, and Steps Taken widgets.
 
