@@ -63,9 +63,9 @@ const updateHydration = (currentHydro) => {
 	const avgOunces = currentHydro.findHydrationAverage(hydrationData);
 
 	h2o.innerHTML = `
-		<p>Today's all FitLit user's water intake averaged at ${avgOunces} ounces.</br></br>
-		Today you drank ${ouncesForDay} ounces of water.</br></br>
-		Your past week's water intake:</br></br>
+		<p>Today, all FitLit user's water intake averaged at ${avgOunces} ounces.</br></br>
+		Today you drank ${ouncesForDay} ounces.</br></br>
+		Your past week water log:</br></br>
 		Saturday: ${ouncesForWeek[5]} ounces</br></br>
 		Friday: ${ouncesForWeek[4]} ounces</br></br>
 		Thursday: ${ouncesForWeek[3]} ounces</br></br>
@@ -78,13 +78,13 @@ const updateHydration = (currentHydro) => {
 const updateSleepTime = (currSleep) => {
 	const todaySleep = currSleep.findUserSleepForDay('2019/09/22');
 	const weekSleep = currSleep.findUserSleepForWeek('2019/09/22');
-	const avSleep = currSleep.findUserAverageSleep(sleepData);
+	const allUserAvgSleep = currSleep.findAllUserAverageSleep(sleepData);
 	const mostSleep = currSleep.findMostSleepUser(sleepData, '2019/09/22', userRepo);
-	const avSleepTime = currSleep.findAverageSleep();
+	const avgSleepTime = currSleep.findAverageSleep();
 
 	userSleepTime.innerHTML = `
-		<p>On average you sleep ${avSleep} hours per night</br></br>
-		All FitLit user's average ${avSleepTime} hours per night</br></br>
+		<p>On average you sleep ${avgSleepTime} hours per night.</br></br>
+		All FitLit user's average ${allUserAvgSleep} hours per night.</br></br>
 		Last night you slept for ${todaySleep} hours.</br></br>
 		Your past week sleeplog:</br></br>
 		Saturday: ${weekSleep[5]} hours</br></br>
@@ -93,7 +93,8 @@ const updateSleepTime = (currSleep) => {
 		Wednesday: ${weekSleep[2]} hours</br></br>
 		Tuesday: ${weekSleep[1]} hours</br></br>
 		Monday: ${weekSleep[0]} hours</br></br>
-		FitLit's sleepiest user last night was: ${mostSleep}.
+		FitLit's sleepiest user last night was...</br></br>
+		${mostSleep.user}, they slept for ${mostSleep.hoursSlept} hours -- WOW!
 	`
 }
 
@@ -105,10 +106,10 @@ const updateSleepQuality = (currSleep) => {
 	const avSleepQuality = currSleep.findAverageQuality();
 
 	userSleepQuality.innerHTML = `
-		<p>On a 1-5 scale, on average your sleep quality is at a ${avQuality}.</br></br>
-		Amongst all FitLit users, the average sleep quality is ${avSleepQuality}.</br></br>
-		Last night your sleep quality was ${todayQuality}.</br></br>
-		Your past week sleep quality:</br></br>
+		<p>On a scale of 1-5, your sleep quality average's at ${avQuality}.</br></br>
+		The average sleep quality is ${avSleepQuality} amongst all FitLit users.</br></br>
+		Last night your sleep quality was at ${todayQuality}.</br></br>
+		Your past week sleep quality log:</br></br>
 		Saturday: ${weekQuality[5]}</br></br>
 		Friday: ${weekQuality[4]}</br></br>
 		Thurdsay: ${weekQuality[3]}</br></br>
@@ -126,7 +127,7 @@ const updateMiles = (currentAct) => {
 
 	userMiles.innerHTML = `
 		<p>Today you walked ${todayMiles} miles.</br></br>
-		In the past week you've walked:</br></br>
+		Your past week miles walked:</br></br>
 		Saturday: ${weekMiles[5]} miles</br></br>
 		Friday: ${weekMiles[4]} miles</br></br>
 		Thursday: ${weekMiles[3]} miles</br></br>
@@ -143,8 +144,8 @@ const updateMinAct = (currentAct) => {
 
 	userMinAct.innerHTML = `
 		<p>Today you were active for ${todayMin} minutes.</br></br>
-		Today's all FitLit user's were active for an average of ${allUserTodayMin} minutes.</br></br>
-		Your past week's activity:</br></br>
+		Today, all FitLit user's were active for an average of ${allUserTodayMin} minutes.</br></br>
+		Your past week activity log:</br></br>
 		Saturday: ${weekMin[5]} minutes</br></br>
 		Friday: ${weekMin[4]} minutes</br></br>
 		Thursday: ${weekMin[3]} minutes</br></br>
@@ -155,35 +156,38 @@ const updateMinAct = (currentAct) => {
 }
 
 const updateStairs = (currentAct) => {
+	currentAct.userStairsWeek('2019/09/22');
 	const stairRecord = currentAct.stairRecord();
 	const allUserStairs = currentAct.allUserStairsClimbed(activityData, '2019/09/22');
+	const todayStairs = currentAct.userStairsToday('2019/09/22');
 
 	userStairs.innerHTML = `
-		<p>${stairRecord}</br></br>
-		Today all FitLit user's averaged ${allUserStairs} flights climbed.
+		<p>Your stair climb record is ${stairRecord.stairFlights} flights on ${stairRecord.date}.</br></br>
+		Today, all FitLit user's averaged ${allUserStairs} flights climbed.</br></br>
+		Today you climbed ${todayStairs} flights of stairs.</br></br>
+		You've climbed ${currentAct.stairs} flights of stairs this week!
 		`;
 }
 
 const updateSteps = (currentAct) => {
+	currentAct.weekSteps('2019/09/22');
 	const todaySteps = currentAct.stepGoalResult('2019/09/22');
 	const avGoal = userRepo.fetchAverageStepGoal();
 	const goalDays = currentAct.daysGoalAchieved();
 	const allUserTodaySteps = currentAct.allUserSteps(activityData, '2019/09/22');
-	currentAct.weekSteps('2019/09/22');
 
 	userSteps.innerHTML = `
 		<p>You took ${currentAct.wkSteps} steps this week.</br></br>
 		Your daily step goal is ${randomUser.dailyStepGoal} steps.</br></br>
-		The average step goal amongst all users is ${avGoal} steps.</br></br>
+		The average step goal amongst all FitLit users is ${avGoal} steps.</br></br>
 		${todaySteps}</br></br>
-		Past log for all the days you achieved your step goal:</br></br>
+		Today all FitLit user's averaged ${allUserTodaySteps} steps.</br></br>
+		All previous days you've exceeded your step goal:</br></br>
 		<ul class="goal-log">${goalDaysToList(goalDays)}</ul>
-		Today all FitLit user's averaged ${allUserTodaySteps} steps.
 		`;
 }
 
-const goalDaysToList = (goalDays) => goalDays
-	.map(day => `<li>${day}</li>`).join('');
+const goalDaysToList = (goalDays) => goalDays.map(day => `<li>${day}</li>`).join('');
 
 const updateChallenge = (currentAct) => {
 	updateSteps(currentAct);
